@@ -9,7 +9,508 @@
   <style>
     :root{--bg:#f6f6f2;--paper:#fff;--ink:#161616;--muted:#686868;--line:#e4e4df;--yellow:#f3ca31;--soft:#fff9dc;--shadow:0 3px 16px rgba(10,10,10,.035)}
     *{box-sizing:border-box}html{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}body{margin:0;line-height:1.45}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #d4a900;outline-offset:2px}
-    .shell{max-width:1100px;margin:0 auto;padding:25px 24px 70px}.top{display:flex;gap:20px;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:13px}.logo{height:43px;width:43px;display:grid;place-items:center;border-radius:13px;background:var(--yellow);font-size:23px;font-weight:900}.brand h1{margin:0;font-size:24px;letter-spacing:-.75px;line-height:1.1}.brand small{font-size:12px;color:var(--muted)}
+    .shell{max-width:1100px;<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f1cb39"><meta name="description" content="Entrenardos: diario semanal de entrenamiento, RMs, WODs e historial con copias JSON."><title>Entrenardos · Diario de entrenamiento V3</title>
+<style>:root{color-scheme:light;--ink:#181a1b;--muted:#62676b;--bg:#f5f5f1;--white:#fff;--line:#e1e1db;--yellow:#f1cb39;--pale:#fff7d6;--green:#23744d;--greenbg:#e9f7ef;--red:#b13f36;--shadow:0 2px 15px rgba(22,22,19,.035)}
+*{box-sizing:border-box}html{background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #d8a900;outline-offset:2px}h1,h2,h3,p{margin:0 0 9px}h2{font-size:23px;letter-spacing:-.5px}h3{font-size:16px}a{color:#25251a}button,input,textarea,select{min-width:0}textarea{resize:vertical;min-height:78px}input,select,textarea{border:1px solid #d4d5d0;background:#fff;border-radius:9px;padding:10px 11px;width:100%;color:#222}input[type=checkbox]{width:19px;height:19px;accent-color:#d9b008}.app{max-width:1160px;margin:0 auto;padding:17px 17px 100px}.header{display:flex;align-items:center;gap:11px;justify-content:space-between;flex-wrap:wrap;margin-bottom:15px}.brand{display:flex;align-items:center;gap:12px}.brandmark{background:var(--yellow);width:43px;height:43px;border-radius:13px;display:grid;place-items:center;font-size:21px;font-weight:900}.brand h1{margin:0;font-size:23px;letter-spacing:-.5px;line-height:1.1}.brand small{font-size:12px;color:var(--muted)}.header-actions{display:flex;gap:7px;flex-wrap:wrap}.navigation{display:flex;gap:5px;overflow:auto;scrollbar-width:none;position:sticky;top:0;z-index:25;padding:7px 4px;background:var(--bg);border-radius:13px;margin-bottom:16px}.navigation::-webkit-scrollbar{display:none}.nav{flex:0 0 auto;border:1px solid transparent;background:#e9e9e4;padding:9px 13px;border-radius:10px;font-weight:700;white-space:nowrap;color:#404240}.nav.active{background:#222;color:#fff}.nav:hover:not(.active){background:#ddddda}.btn{background:#fff;border:1px solid #d9d9d2;padding:9px 13px;min-height:39px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:10px;font-weight:700;font-size:13px;line-height:1.25;text-align:center;white-space:normal;color:#181818}.btn:hover{background:#f4f4f0}.btn.primary{background:var(--yellow);border-color:#e5bf2b;color:#171717}.btn.primary:hover{background:#edc32a}.btn.dark{background:#222;color:white;border-color:#222}.btn.dark:hover{background:#444}.btn.danger{color:#a33328}.btn.small{min-height:30px;padding:6px 9px;font-size:12px}.btn.icon{min-width:34px;padding:7px 8px}.btn.full{width:100%}.btn.active{background:#222;color:#fff}.flex{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.between{justify-content:space-between}.grow{flex:1}.subtle{color:var(--muted)}.smalltext{font-size:12px}.tiny{font-size:11px}.eyebrow{font-size:11px;font-weight:800;color:#747873;text-transform:uppercase;letter-spacing:1.1px}.paper{background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:17px;padding:18px;margin-bottom:13px}.banner{padding:12px 14px;border:1px solid #e9d08b;background:#fff9e8;border-radius:13px;margin-bottom:13px;font-size:13px}.banner p{margin:0}.backupbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:11px 14px;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--yellow);border-radius:13px;margin-bottom:14px}.backupbar strong{font-size:13px}.backupbar .subtle{display:block;font-size:11px}.weekbar{display:flex;align-items:center;gap:9px;justify-content:space-between;flex-wrap:wrap}.week-title{font-size:18px;font-weight:850;letter-spacing:-.35px}.weekbar-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.daygrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:15px 0}.daybtn{background:#fff;border:1px solid var(--line);padding:10px 3px;border-radius:11px;display:grid;gap:4px;justify-items:center;min-width:0;color:#333}.daybtn span{font-weight:850;font-size:12px}.daybtn small{font-size:11px;color:#727272}.daybtn.active{background:#222;color:#fff;border-color:#222}.daybtn.active small{color:#f5d563}.daybtn.today:not(.active){border:2px solid #e9c135}.daybtn .dot{width:6px;height:6px;background:var(--yellow);border-radius:50%;opacity:0}.daybtn.hasdone .dot{opacity:1}.tabswitch{display:flex;background:#edede8;border-radius:11px;gap:4px;padding:4px}.tabswitch .btn{flex:1;border:0;background:transparent;min-width:0}.tabswitch .btn.active{background:white;color:#171717;box-shadow:0 1px 5px #00000015}.lead{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin:8px 0 15px}.lead h2{margin:1px 0 5px}.lead p{font-size:13px;color:var(--muted);margin:0}.block{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px;background:#fff}.blockhead{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#f7f7f4;padding:11px 12px;flex-wrap:wrap}.blockhead strong{font-size:14px}.blockhead small{font-size:11px;color:var(--muted)}.blockbody{padding:2px 12px}.item{padding:14px 0;border-top:1px solid #ebebe7}.item:first-child{border:0}.itemname{font-weight:820;font-size:16px;letter-spacing:-.2px}.badges{display:flex;gap:5px;flex-wrap:wrap;margin:7px 0}.chip{display:inline-block;background:#f0f0eb;border-radius:7px;padding:4px 7px;font-weight:650;font-size:11px}.chip.yellow{background:#fff0b2}.chip.green{background:var(--greenbg);color:var(--green)}.chip.warning{background:#fbe8e2;color:#973b30}.itemhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.itemhead .actions{display:flex;align-items:center;gap:5px;flex-wrap:wrap}.presc{font-size:12px;color:#444;line-height:1.7;margin:7px 0}.series-preview{display:flex;gap:6px;flex-wrap:wrap;margin:9px 0 3px}.series-preview span{font-size:11px;padding:5px 7px;background:#f5f5ef;border:1px solid #e4e4df;border-radius:7px;white-space:nowrap}.daynote{margin:15px 0}.controls-bottom{padding:10px 13px 13px;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line)}.logpanel{margin-top:12px;padding-top:12px;border-top:1px dashed #dadbd5}.loggrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.field{display:block;min-width:0}.field label,.label{font-size:11px;font-weight:750;display:block;color:#5a5a57;margin-bottom:4px}.field input,.field select,.field textarea{padding:9px 8px;font-size:13px}.field.wide{grid-column:1/-1}.checkline{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:750}.checkline input{flex:0 0 auto}.doneitem{border-left:3px solid #39965b;padding-left:10px}.log-hint{font-size:12px;background:#fff9dd;padding:8px 10px;border-radius:8px;margin:10px 0 3px}.setdetails{margin-top:11px;background:#fafaf7;border-radius:10px;border:1px solid #e7e7e3;padding:9px}.setdetails summary{font-weight:700;font-size:12px;cursor:pointer}.setlogrow{display:grid;grid-template-columns:35px repeat(4,minmax(0,1fr));gap:5px;align-items:center;padding:8px 0;border-bottom:1px solid #ecece8}.setlogrow:last-child{border:0}.setlogrow input{font-size:12px;padding:8px 5px;text-align:center}.wodtext{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.62;background:#fafaf7;padding:12px;border-radius:10px;margin:10px 0}.workout-card{border:1px solid var(--line);border-radius:13px;background:#fff;padding:14px;margin:0 0 12px}.workout-card h3{margin:0 0 5px;font-size:15px}.workout-card .meta{font-size:11px;color:var(--muted);margin-bottom:6px}.workout-card details{margin:9px 0}.workout-card summary{font-size:12px;font-weight:750;cursor:pointer}.actions{display:flex;gap:6px;flex-wrap:wrap}.library-toolbar{display:grid;grid-template-columns:minmax(180px,2fr) 1fr 1fr;gap:9px;margin:12px 0}.library-status{color:#666;font-size:12px;margin-bottom:12px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.empty{text-align:center;padding:24px 15px;background:#f8f8f4;border:1px dashed #d7d7cc;border-radius:13px;color:#666;font-size:13px}.history-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.history-item{text-align:left;border:1px solid var(--line);border-radius:12px;padding:15px;background:#fff}.history-item strong{display:block}.history-item small{color:#777}.rm-row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(90px,150px) 40px;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.rm-row strong{font-size:14px}.rm-row input{text-align:right}.helper{padding:11px 13px;border-radius:10px;background:var(--pale);font-size:13px}.footer{text-align:center;color:#777;font-size:11px;padding:18px}.highlight{color:#155e35}.muted{color:#777}.modal{width:min(720px,calc(100vw - 20px));max-height:calc(100dvh - 25px);border:0;border-radius:17px;box-shadow:0 25px 80px #0005;padding:0;overflow:auto}.modal::backdrop{background:rgba(12,12,12,.56)}.modalhead{position:sticky;top:0;background:white;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:17px 19px;border-bottom:1px solid var(--line);z-index:5}.modalhead h2{font-size:19px;margin:0}.modalbody{padding:17px 19px 22px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.formgrid .span{grid-column:1/-1}.formfoot{position:sticky;bottom:0;background:white;padding:11px 0 0;margin-top:14px;border-top:1px solid var(--line);display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap}.series-edit{margin:15px 0;background:#f9f9f6;padding:11px;border-radius:11px}.series-head{display:grid;grid-template-columns:28px repeat(4,minmax(0,1fr));gap:5px;margin-bottom:5px;font-size:10px;font-weight:750;color:#6f716e}.seriesrow{display:grid;grid-template-columns:28px repeat(4,minmax(0,1fr));gap:5px;align-items:center;margin-bottom:6px}.seriesrow input{padding:7px 5px;font-size:12px;text-align:center}.seriesrow span{font-size:12px;font-weight:750}.form-rm-tools{display:flex;gap:8px;flex-wrap:wrap;margin:7px 0}.fielddesc{font-size:11px;color:#666;margin-top:5px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);max-width:90vw;padding:10px 16px;background:#252525;color:white;border-radius:11px;z-index:999;font-size:13px;box-shadow:0 6px 22px #0004;opacity:0;pointer-events:none;transition:opacity .15s}.toast.visible{opacity:1}.only-screen-reader{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}.safety{background:#fff9e7;border:1px solid #eddaa0;border-radius:10px;padding:12px;margin:8px 0;font-size:12px}.library-search-count{font-size:12px;margin:10px 0;color:#6b6b66}.week-status{display:inline-flex;align-items:center;gap:5px;border-radius:9px;padding:5px 9px;font-size:11px;background:#f2f1e9;font-weight:750}
+@media(max-width:750px){.app{padding:12px 11px 85px}.brand h1{font-size:20px}.brandmark{width:39px;height:39px}.paper{padding:13px;border-radius:14px}.header{margin-bottom:9px}.header-actions{width:100%}.header-actions>.btn{flex:1}.daygrid{gap:3px}.daybtn{padding:8px 2px}.daybtn span{font-size:11px}.daybtn small{font-size:10px}.lead h2{font-size:21px}.week-title{font-size:16px}.weekbar{align-items:flex-start}.weekbar-actions{width:100%}.weekbar-actions .btn{flex:1}.library-toolbar{grid-template-columns:1fr 1fr}.library-toolbar .field:first-child{grid-column:1/-1}.loggrid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.history-list{grid-template-columns:1fr}.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.modalbody{padding:13px 12px 18px}.modalhead{padding:14px 13px}.seriesrow{gap:3px}.seriesrow input{padding:8px 3px}.brand small{font-size:11px}.rm-row{grid-template-columns:minmax(100px,1fr) 100px 34px;gap:6px}.rm-row strong{font-size:12px}}
+@media(max-width:360px){.daybtn small{display:none}.daybtn span{font-size:11px}.nav{font-size:12px;padding:8px 11px}.formgrid{grid-template-columns:1fr}.formgrid .span{grid-column:auto}.loggrid{grid-template-columns:1fr 1fr}.setlogrow{grid-template-columns:27px repeat(4,minmax(0,1fr))}.setlogrow input{font-size:11px}.btn{font-size:12px;padding:8px 9px}}
+</style></head><body>
+<div class="app">
+<header class="header"><div class="brand"><div class="brandmark" aria-hidden="true">E</div><div><h1>Entrenardos</h1><small>Tu entrenamiento, semana a semana</small></div></div><div class="header-actions"><button class="btn primary" data-act="backup">↓ Descargar mis datos</button><button class="btn" data-act="restore">↑ Restaurar copia</button></div></header>
+<nav class="navigation" aria-label="Secciones" id="nav">
+<button class="nav active" data-nav="semana">Semana</button><button class="nav" data-nav="historial">Historial</button><button class="nav" data-nav="biblioteca">Biblioteca WOD</button><button class="nav" data-nav="favoritos">★ Favoritos</button><button class="nav" data-nav="rms">Mis RM</button><button class="nav" data-nav="copias">Copias</button>
+</nav>
+<div class="backupbar"><div><strong id="saveLabel">Guardado en este navegador</strong><span class="subtle">Las copias JSON te permiten recuperar los datos en otro móvil.</span></div><span class="week-status" id="stateStatus">● Guardado local</span></div>
+<main id="appMain"></main><footer class="footer">Entrenardos V3.1 · Los registros son locales a este navegador. Haz una copia de seguridad semanal.</footer></div>
+<dialog class="modal" id="editModal"></dialog><input type="file" id="restoreFile" accept=".json,application/json" class="only-screen-reader"><input type="file" id="libraryFile" accept=".json,application/json" class="only-screen-reader"><div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>(() => {
+'use strict';
+const $=(s,el=document)=>el.querySelector(s);
+const $$=(s,el=document)=>[...el.querySelectorAll(s)];
+const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fold=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const id=(s='x')=>s+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
+const clone=x=>JSON.parse(JSON.stringify(x));
+const num=(x, fallback=NaN)=>{if(x===null||x===undefined||x==='')return fallback;const n=Number(String(x).replace(',','.'));return Number.isFinite(n)?n:fallback};
+const pnum=x=>Number.isFinite(num(x))?String(num(x)).replace('.',','):'';
+const DAYNAMES=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const RM_SEED=[['Snatch',84],['Clean & Jerk',100],['Clean',100],['Jerk',100],['Power Snatch',73],['Power Clean',93],['Power Jerk',85],['Jerk Bnk',100],['Back Squat',115],['Front Squat',110],['Overhead Squat',92.5],['Snatch Balance',85],['Push Press',78],['Deadlift',160],['Bench Press',108]];
+const SCHEMES=['Normal','EMOM','E2MOM','Every 90 s','Every 3 min','Superserie','Clúster','AMRAP','Intervalos','For Time','Personalizado'];
+const CATEGORIES=['Halterofilia','Fuerza','Hipertrofia','Accesorios / Core','HIIT / Engine','WOD','Carrera / Trail','Tenis','Descanso','Libre'];
+const TYPES=['AMRAP','EMOM','RFT','For Time','Every / Intervalos','Intervalos','For Quality','Otro'];
+// The PDF WOD library is private. It is loaded only from a file chosen by the user.
+const STORE_KEY='entrenardos_v3_diario';
+const storageSupported=(()=>{try{const t='__entrenardos_storage_test__';localStorage.setItem(t,'1');localStorage.removeItem(t);return true;}catch{return false;}})();
+let db;
+let ui={page:'semana',mode:'registrar',week:'',day:0,libraryQuery:'',libraryCategory:'',libraryType:'',libraryLimit:24,addContext:null};
+let toastTimer;
+function today(){const d=new Date();d.setHours(12,0,0,0);return d;}
+function monday(dt){const d=new Date(dt);d.setHours(12,0,0,0);d.setDate(d.getDate()-(d.getDay()+6)%7);return d;}
+function addDays(dt,n){const d=new Date(dt);d.setDate(d.getDate()+n);return d;}
+function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function fromKey(key){const parts=key.split('-').map(Number);return new Date(parts[0],parts[1]-1,parts[2],12);}
+function thisWeek(){return iso(monday(today()));}
+function nextWeek(){return iso(addDays(fromKey(thisWeek()),7));}
+function prettyWeek(key){const a=fromKey(key),b=addDays(a,6);return `${a.getDate()} ${a.toLocaleDateString('es-ES',{month:'short'})} — ${b.getDate()} ${b.toLocaleDateString('es-ES',{month:'short',year:'numeric'})}`;}
+function dayDate(key,i){return addDays(fromKey(key),i);}
+function toast(s){const el=$('#toast');el.textContent=s;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),2500);}
+function save(){try{localStorage.setItem(STORE_KEY,JSON.stringify(db));$('#stateStatus').textContent='● Guardado local';$('#saveLabel').textContent='Guardado en este navegador';return true;}catch(e){$('#stateStatus').textContent='⚠ No se pudo guardar';$('#saveLabel').textContent='No se pudieron guardar los cambios';toast('Almacenamiento lleno o bloqueado. Descarga una copia y libera espacio.');return false;}}
+function rmId(name){return db.rms.find(x=>fold(x.name)===fold(name))?.id||'';}
+function row(reps='8',pct='',rir='',fixedKg=''){return {id:id('s'),reps:String(reps),pct:String(pct),rir:String(rir),fixedKg:String(fixedKg)};}
+function ex(name,opts={}){
+ const n=opts.n??4,r=opts.reps??8,ps=opts.pcts||[];
+ return {id:id('e'),name,scheme:opts.scheme||'Normal',durationMin:opts.duration??'',restSec:opts.rest??'',rmId:opts.rm?rmId(opts.rm):'',notes:opts.notes||'',rows:Array.from({length:n},(_,i)=>row(Array.isArray(r)?r[i%r.length]:r,ps[i]??opts.pct??'',opts.rir??'',opts.fixedKg??'')),actual:{done:false,completedAt:'',summary:{kg:'',reps:'',rir:'',rest:'',notes:''},rows:[]}};
+}
+function wod(name='',text='',opts={}){return {id:id('wday'),title:name||'WOD por definir',text,format:opts.format||detectWodType(text),source:opts.source||'',libraryId:opts.libraryId||'',actual:{done:false,completedAt:'',time:'',rounds:'',score:'',notes:''}};}
+function block(title,category='Libre',items=[],wods=[]){return {id:id('b'),title,category,items,wods};}
+function emptyWeek(){return {createdAt:new Date().toISOString(),days:DAYNAMES.map((_,i)=>({label:['Halterofilia + hipertrofia + HIIT','Trail de montaña','Halterofilia + WOD largo + core','Tenis','Halterofilia + WOD intenso','Hipertrofia opcional / descanso','Descanso'][i],notes:'',blocks:[]}))};}
+function initialWeek(){
+ const w=emptyWeek();
+ const d=w.days;
+ d[0].blocks=[
+ block('Halterofilia','Halterofilia',[
+  ex('Power Clean + Jerk',{n:10,reps:2,scheme:'EMOM',duration:10,rm:'Power Clean',pcts:[60,60,60,65,65,65,65,70,70,70],notes:'2 repeticiones al comienzo de cada minuto. Controlar la fatiga antes del trail.'}),
+  ex('Squat Clean · doble pausa bajo rodilla y bajo cadera',{n:5,reps:2,scheme:'E2MOM',duration:10,rm:'Clean',pcts:[55,57.5,60,62.5,65],notes:'Pausa de 1–2 s bajo rodilla y debajo de cadera; recepción completa.'})]),
+ block('Hipertrofia tren superior','Hipertrofia',[
+  ex('Press banca con mancuernas',{n:4,reps:8,rir:'1-2',rest:90}),
+  ex('Dominadas',{n:5,reps:[8,8,5,5,5],rir:'1-2',rest:120,notes:'Lastre opcional en las series de 5 para mantener RIR 1–2.'}),
+  ex('Remo Bird Dog con KB',{n:4,reps:'8-10/lado',rir:'1-2',rest:75})]),
+ block('HIIT · ejercicio + máquina','HIIT / Engine',[],[wod('HIIT mixto','Un ejercicio por definir + una máquina (SkiErg / RowErg / AirBike / EchoBike).\nIntervalos y estructura pendientes de configurar.',{format:'Intervalos'})])
+ ];
+ d[1].blocks=[block('Trail de montaña','Carrera / Trail',[],[wod('Tirada larga','Carrera / trail de montaña.\nRegistrar tiempo, distancia, desnivel y sensaciones en los resultados.',{format:'Otro'})])];
+ d[2].blocks=[
+ block('Halterofilia','Halterofilia',[
+  ex('Squat Snatch desde suelo',{n:10,reps:2,scheme:'EMOM',duration:10,rm:'Snatch',pcts:[65,65,67.5,67.5,67.5,70,70,70,72.5,72.5]}),
+  ex('Hang Power Snatch',{n:5,reps:2,scheme:'E2MOM',duration:10,rm:'Power Snatch',pcts:[65,67.5,70,72.5,75]})]),
+ block('Sentadilla frontal','Fuerza',[ex('Front Squat',{n:5,reps:[5,5,3,3,3],scheme:'Normal',rest:150,rm:'Front Squat',pcts:[67.5,70,75,77.5,80],notes:'Objetivo RIR 2–3. Ajustar la carga si el trail del martes ha generado fatiga.'})]),
+ block('WOD largo','WOD',[],[wod('WOD largo · movimientos obligatorios','Muscle Ups en barra o anillas\nZancadas con mancuernas (front rack, overhead o laterales)\nAñadir el resto de movimientos y estructura del WOD.',{format:'Otro'})]),
+ block('Superserie glúteos + core · 4 vueltas','Accesorios / Core',[
+  ex('Hip Thrust unilateral',{n:4,reps:'8-12/lado',scheme:'Superserie',rir:'2-3',rest:0}),
+  ex('Dead Bug',{n:4,reps:'8-10/lado',scheme:'Superserie',rest:30})])
+ ];
+ d[3].blocks=[block('Tenis','Tenis',[],[wod('Tenis','Día de recuperación relativa; sesión de tenis.',{format:'Otro'})])];
+ d[4].blocks=[
+ block('Halterofilia','Halterofilia',[
+  ex('Clean + Jerk completo',{n:6,reps:2,scheme:'Normal',rest:120,rm:'Clean',pcts:[75,77.5,80,80,80,82.5],notes:'Dos minutos de descanso completo entre series.'}),
+  ex('Clean Deadlift',{n:5,reps:2,scheme:'E2MOM',duration:10,rm:'Clean',pcts:[100,102.5,105,107.5,110]})]),
+ block('WOD intenso','WOD',[],[wod('WOD intenso · movimientos obligatorios','Trineo: empuje o arrastre\nToes to Bar\nHang Power Clean o Power Clean (orientativo 40–60% del RM Power Clean)\nConfigurar estructura del WOD.',{format:'Otro'})])
+ ];
+ d[5].blocks=[block('Hipertrofia opcional','Hipertrofia',[],[wod('Opcional / descanso','Si hay buena recuperación, accesorios de hipertrofia, preferentemente tren superior. RIR 1–2.',{format:'Otro'})])];
+ d[6].blocks=[block('Descanso','Descanso')];
+ return w;
+}
+function freshDb(){
+ const rms=RM_SEED.map(([name,value],i)=>({id:'rm'+(i+1),name,value}));
+ const out={version:3,created:new Date().toISOString(),settings:{stepKg:2.5},rms,weeks:{},customWods:[],libraryWods:[],favorites:[]};
+ return out;
+}
+function init(){
+ const raw=storageSupported?localStorage.getItem(STORE_KEY):null;
+ if(raw){try{const o=JSON.parse(raw);if(o&&o.version===3&&Array.isArray(o.rms)&&o.weeks&&Array.isArray(o.customWods)&&Array.isArray(o.favorites))db=o;}catch(e){console.warn('Datos anteriores no válidos',e);}}
+ if(db&&!Array.isArray(db.libraryWods))db.libraryWods=[];
+ if(!db){db=freshDb();const d=today(),base=monday(d);if(d.getDay()===0)base.setDate(base.getDate()+7);db.weeks[iso(base)]=initialWeek();save();}
+ const nowWeek=thisWeek();ui.week=db.weeks[nowWeek]?nowWeek:Object.keys(db.weeks).sort().at(-1)||nowWeek;
+ const day=(today().getDay()+6)%7;ui.day=ui.week===nowWeek?day:0;
+ render();
+}
+function resetActual(e){e.actual={done:false,completedAt:'',summary:{kg:'',reps:'',rir:'',rest:'',notes:''},rows:[]};}
+function carryActualWeights(source,target){
+ if(!source||!target)return 0;let updated=0;
+ source.days.forEach((sd,di)=>{
+  const td=target.days[di];if(!td)return;
+  for(const sb of sd.blocks)for(const previous of sb.items){
+   if(!previous.actual?.done)continue;
+   let now=null;for(const tb of td.blocks){now=tb.items.find(x=>x.id===previous.id);if(now)break;}
+   if(!now)continue;
+   for(let i=0;i<now.rows.length;i++){
+    const r=now.rows[i];
+    // Percentages linked to an RM always remain dynamic, never convert to fixed weights.
+    if(now.rmId&&Number.isFinite(num(r.pct)))continue;
+    const logged=previous.actual.rows?.[i]?.kg||previous.actual.summary?.kg;
+    if(Number.isFinite(num(logged))&&num(logged)>0){r.fixedKg=String(num(logged));updated++;}
+   }
+  }
+ });return updated;
+}
+function ensureWeek(key){
+ if(db.weeks[key])return db.weeks[key];
+ const keys=Object.keys(db.weeks).filter(k=>k<key).sort();const prev=keys.at(-1);let next;
+ if(prev){
+  next=clone(db.weeks[prev]);next.createdAt=new Date().toISOString();
+  carryActualWeights(db.weeks[prev],next);
+  for(const day of next.days)for(const b of day.blocks){for(const x of b.items)resetActual(x);for(const w of b.wods)w.actual={done:false,completedAt:'',time:'',rounds:'',score:'',notes:''};}
+ }else next=emptyWeek();
+ db.weeks[key]=next;save();return next;
+}
+function week(){return ensureWeek(ui.week);}
+function curDay(){return week().days[ui.day];}
+function getBlock(bid){return curDay().blocks.find(x=>x.id===bid);}
+function getEx(eid){for(const b of curDay().blocks){const x=b.items.find(v=>v.id===eid);if(x)return {block:b,x};}return null;}
+function getWod(wid){for(const b of curDay().blocks){const x=b.wods.find(v=>v.id===wid);if(x)return {block:b,x};}return null;}
+function calcKg(exercise,r){
+ const fixed=num(r.fixedKg);
+ if(Number.isFinite(fixed))return fixed;
+ const reference=db.rms.find(r=>r.id===exercise.rmId);
+ const pct=num(r.pct);
+ if(!reference||!Number.isFinite(pct))return null;
+ const step=num(db.settings.stepKg,2.5)||2.5;
+ return Math.round((num(reference.value,0)*pct/100)/step)*step;
+}
+function weightText(kg){return kg===null?'—':pnum(kg)+' kg';}
+function exGoal(exercise){const ref=db.rms.find(r=>r.id===exercise.rmId);const k=exercise.rows.map(r=>calcKg(exercise,r)).filter(x=>x!==null);const ps=exercise.rows.map(r=>num(r.pct)).filter(Number.isFinite);return {ref,ks:k,ps,first:k[0]??null,last:k.at(-1)??null};}
+function ensureActualRows(e){if(!Array.isArray(e.actual.rows))e.actual.rows=[];while(e.actual.rows.length<e.rows.length)e.actual.rows.push({kg:'',reps:'',rir:'',rest:''});return e.actual.rows;}
+function libraryAll(){return [...db.customWods,...(db.libraryWods||[])];}
+function findWodById(wid){return db.customWods.find(x=>x.id===wid)||(db.libraryWods||[]).find(x=>x.id===wid);}
+function isFav(wid){return db.favorites.includes(wid);}
+function detectWodType(text){const t=fold(text);if(/amrap\s*\d+/.test(t))return 'AMRAP';if(/\b\d+\s*(?:rft|rondas? for time|rounds? for time)\b/.test(t))return 'RFT';if(/for time/.test(t))return 'For Time';if(/\bemom\b/.test(t))return 'EMOM';if(/\b(?:every|e2mom|e3mom)\b/.test(t))return 'Every / Intervalos';if(/\b(?:on|off|intervalos?)\b/.test(t))return 'Intervalos';return 'Otro';}
+function normalizeWodSearch(q){return fold(q).replace(/\bt2b\b/g,'toes to bar').replace(/\bttb\b/g,'toes to bar').replace(/\bc2b\b/g,'chest to bar').replace(/\bbmu\b/g,'bar muscle up').replace(/\brmu\b/g,'ring muscle up').replace(/\bpc\b/g,'power clean').trim();}
+function searchCorpus(w){return normalizeWodSearch([w.title,w.text,w.format,w.category,w.originalCategory,w.source,...(w.movements||[])].join(' '));}
+function countDone(key){const w=db.weeks[key];if(!w)return {done:0,total:0};let done=0,total=0;for(const d of w.days)for(const b of d.blocks){for(const e of b.items){total++;if(e.actual?.done)done++;}for(const x of b.wods){total++;if(x.actual?.done)done++;}}return {done,total};}
+function currentRir(e){return [...new Set(e.rows.map(r=>r.rir).filter(Boolean))].join(' / ')||'—';}
+function render(){
+ $$('#nav .nav').forEach(b=>b.classList.toggle('active',b.dataset.nav===ui.page));
+ const host=$('#appMain');
+ if(ui.page==='semana')host.innerHTML=renderWeek();
+ else if(ui.page==='historial')host.innerHTML=renderHistory();
+ else if(ui.page==='biblioteca')host.innerHTML=renderLibrary();
+ else if(ui.page==='favoritos')host.innerHTML=renderFavorites();
+ else if(ui.page==='rms')host.innerHTML=renderRms();
+ else if(ui.page==='copias')host.innerHTML=renderCopies();
+ if(ui.page==='biblioteca')renderLibraryCards();
+}
+function renderWeek(){
+ const w=week(),d=w.days[ui.day],dt=dayDate(ui.week,ui.day),c=countDone(ui.week),present=thisWeek();
+ const backToCurrent=`<button class="btn small" data-act="jumpweek" data-week="${present}">Esta semana</button><button class="btn small" data-act="jumpweek" data-week="${nextWeek()}">Siguiente</button>`;
+ return `<section class="paper">
+ <div class="weekbar"><div><span class="eyebrow">Programación semanal</span><div class="week-title">${safe(prettyWeek(ui.week))}</div><span class="smalltext subtle">${c.done} de ${c.total} actividades marcadas</span></div>
+ <div class="weekbar-actions"><button class="btn small icon" data-act="shiftweek" data-delta="-7" aria-label="Semana anterior">‹</button>${backToCurrent}<button class="btn small icon" data-act="shiftweek" data-delta="7" aria-label="Semana siguiente">›</button></div></div>
+ <div class="daygrid">${w.days.map((day,i)=>{const when=dayDate(ui.week,i),td=iso(when)===iso(today()),done=day.blocks.some(b=>b.items.some(x=>x.actual?.done)||b.wods.some(x=>x.actual?.done));return `<button class="daybtn ${i===ui.day?'active':''} ${td?'today':''} ${done?'hasdone':''}" data-act="day" data-day="${i}"><span>${['L','M','X','J','V','S','D'][i]}</span><small>${when.getDate()}</small><b class="dot"></b></button>`}).join('')}</div>
+ <div class="flex between"><div><h2 style="margin:0">${safe(DAYNAMES[ui.day])} ${dt.getDate()}</h2><p class="subtle smalltext" style="margin:2px 0">${safe(d.label)}</p></div><div class="tabswitch"><button class="btn small ${ui.mode==='registrar'?'active':''}" data-act="mode" data-mode="registrar">Registrar</button><button class="btn small ${ui.mode==='planificar'?'active':''}" data-act="mode" data-mode="planificar">Planificar</button></div></div>
+ ${ui.mode==='planificar'?'<p class="helper" style="margin-top:14px">Puedes cambiar ahora todos los ejercicios de cualquier día y de cualquier semana. Los cambios quedan guardados aunque el entrenamiento todavía no se haya realizado.</p>':'<p class="helper" style="margin-top:14px">Al marcar Realizado se copian autom\u00e1ticamente los pesos, repeticiones, RIR y descansos programados. Puedes corregir cualquier resultado despu\u00e9s.</p>'}
+ <div style="margin-top:17px">${d.blocks.length?d.blocks.map((b,i)=>renderBlock(b,i)).join(''):'<div class="empty">Este día aún no tiene bloques. En Planificar puedes añadirlos.</div>'}</div>
+ <div class="daynote"><label class="label" for="daynotes">Notas generales del día</label><textarea id="daynotes" data-daynote="1" placeholder="Sensaciones, molestias, recuperación, distancia del trail...">${safe(d.notes)}</textarea></div>
+ ${ui.mode==='planificar'?`<div class="flex"><button class="btn primary" data-act="addblock">+ Añadir bloque</button><button class="btn" data-act="editday">Editar título del día</button><button class="btn" data-act="carryloads">Traer pesos reales anteriores</button><button class="btn" data-act="copyprior">Copiar programación anterior</button></div>`:`<div class="flex"><button class="btn" data-act="mode" data-mode="planificar">✎ Editar programación</button><button class="btn" data-act="goto-library">+ Elegir WOD de biblioteca</button></div>`}
+ </section>`;
+}
+function renderBlock(b,bIndex){
+ const plan=ui.mode==='planificar';const actions=plan?`<div class="actions"><button class="btn small" data-act="editblock" data-bid="${b.id}">✎ Bloque</button><button class="btn small" data-act="moveblock" data-bid="${b.id}" data-delta="-1" aria-label="Subir bloque">↑</button><button class="btn small" data-act="moveblock" data-bid="${b.id}" data-delta="1" aria-label="Bajar bloque">↓</button><button class="btn small danger" data-act="deleteblock" data-bid="${b.id}">×</button></div>`:'';
+ return `<section class="block"><div class="blockhead"><div><strong><span class="chip yellow">${String.fromCharCode(65+bIndex)}</span> ${safe(b.title)}</strong> <small> · ${safe(b.category)}</small></div>${actions}</div>
+ <div class="blockbody">${b.items.map(e=>renderExercise(e,b,plan)).join('')}${b.wods.map(w=>renderDayWod(w,b,plan)).join('')}${(!b.items.length&&!b.wods.length)?'<p class="smalltext subtle" style="padding:15px 0">Bloque sin ejercicios.</p>':''}</div>
+ ${plan?`<div class="controls-bottom"><button class="btn small primary" data-act="addex" data-bid="${b.id}">+ Ejercicio</button><button class="btn small" data-act="addwod" data-bid="${b.id}">+ Escribir WOD</button><button class="btn small" data-act="goto-library" data-bid="${b.id}">Buscar WOD</button></div>`:''}
+ </section>`;
+}
+function renderExercise(e,b,plan){
+ const goal=exGoal(e),active=!!e.actual?.done;
+ const rm=goal.ref?`% RM ${safe(goal.ref.name)}`:e.rows.some(r=>r.fixedKg!=='' )?'Peso fijo':'Sin RM';
+ const target=goal.ks.length?`${weightText(goal.first)}${goal.ks.length>1&&goal.last!==goal.first?' → '+weightText(goal.last):''}`:'Sin kg programados';
+ const sets=e.rows.length,rs=e.rows.map(x=>x.reps),reps=rs.every(x=>x===rs[0])?rs[0]:rs.length>7?rs.slice(0,3).join(' · ')+'…':rs.join(' · ');
+ const actions=plan?`<div class="actions"><button class="btn small" data-act="editex" data-eid="${e.id}">✎ Editar</button><button class="btn small" data-act="moveex" data-eid="${e.id}" data-delta="-1">↑</button><button class="btn small" data-act="moveex" data-eid="${e.id}" data-delta="1">↓</button><button class="btn small danger" data-act="deleteex" data-eid="${e.id}">×</button></div>`:'';
+ const rows=e.rows.map((r,i)=>`<span>S${i+1}: ${safe(r.reps||'—')} rep ${r.pct!==''?'· '+safe(r.pct)+'%':''} ${calcKg(e,r)!==null?'· '+weightText(calcKg(e,r)):''}${r.rir!==''?' · RIR '+safe(r.rir):''}</span>`).join('');
+ return `<article class="item ${active?'doneitem':''}"><div class="itemhead"><div><div class="itemname">${safe(e.name)} ${active?'<span class="highlight">✓</span>':''}</div><div class="badges"><span class="chip yellow">${safe(e.scheme)}</span><span class="chip">${sets} series · ${safe(reps)} rep</span><span class="chip">${rm}</span>${e.durationMin?`<span class="chip">${safe(e.durationMin)} min</span>`:''}${e.restSec?`<span class="chip">${safe(e.restSec)} s descanso</span>`:''}${currentRir(e)!=='—'?`<span class="chip">RIR ${safe(currentRir(e))}</span>`:''}</div></div>${actions}</div>
+ <div class="presc"><strong>Cargas objetivo:</strong> ${safe(target)}${e.notes?`<br><span class="subtle">${safe(e.notes)}</span>`:''}</div>
+ ${plan?`<details><summary class="smalltext" style="cursor:pointer;font-weight:750">Ver objetivos por serie (${sets})</summary><div class="series-preview">${rows}</div></details>`:renderExLog(e)}
+ </article>`;
+}
+function renderExLog(e){
+ const a=e.actual||{done:false,summary:{},rows:[]};const s=a.summary||{};const hadData=!!(s.kg||s.reps||s.rir||s.rest||s.notes||(a.rows||[]).some(r=>r.kg||r.reps||r.rir||r.rest));
+ return `<div class="logpanel"><div class="flex between"><label class="checkline"><input type="checkbox" data-doneex="${e.id}" ${a.done?'checked':''}> Realizado</label><button class="btn small" data-act="copyplan" data-eid="${e.id}">Copiar plan al registro</button></div>
+ ${a.done?`<div class="log-hint">\u2713 Programaci\u00f3n registrada en ${(a.rows||[]).filter(r=>r.reps||r.kg).length}/${e.rows.length} series. ${!s.kg?'Las cargas var\u00edan por serie: abre el registro detallado para verlas.':''} Puedes corregir cualquier valor real.</div>`:''}
+ <div class="loggrid" style="margin-top:10px">
+ ${logField('Peso real (kg)','kg',e.id,s.kg,'kg')}${logField('Reps reales','reps',e.id,s.reps,'reps')}${logField('RIR real','rir',e.id,s.rir,'RIR')}${logField('Descanso (s)','rest',e.id,s.rest,'segundos')}
+ <div class="field wide"><label>Comentarios</label><textarea data-exlog="${e.id}" data-field="notes" placeholder="¿Cómo fue? Técnica, fatiga...">${safe(s.notes)}</textarea></div></div>
+ <details class="setdetails"><summary>Registro por series (relleno al completar) · ${e.rows.length} series</summary><div class="flex between" style="margin:10px 0"><span class="smalltext subtle">Al marcar Realizado se rellenan las series desde tu plan; puedes modificar los datos.</span></div>
+ <div class="setlogrow tiny" style="font-weight:750"><span>Serie</span><span>kg real</span><span>Reps</span><span>RIR</span><span>Desc. s</span></div>
+ ${e.rows.map((r,i)=>{const ar=a.rows?.[i]||{};return `<div class="setlogrow"><span class="tiny" title="Objetivo: ${safe(r.reps)} reps, ${weightText(calcKg(e,r))}">${i+1}</span>${['kg','reps','rir','rest'].map((f)=>`<input aria-label="Serie ${i+1}, ${f}" inputmode="decimal" data-exset="${e.id}" data-si="${i}" data-field="${f}" placeholder="${safe(f==='kg'?pnum(calcKg(e,r)):f==='reps'?r.reps:'—')}" value="${safe(ar[f]||'')}">`).join('')}</div>`}).join('')}
+ </details></div>`;
+}
+function logField(title,field,eid,value,placeholder){return `<div class="field"><label>${title}</label><input data-exlog="${eid}" data-field="${field}" inputmode="decimal" value="${safe(value??'')}" placeholder="${safe(placeholder)}"></div>`;}
+function renderDayWod(w,b,plan){
+ const a=w.actual||{},actions=`<div class="actions"><button class="btn small" data-act="editwod" data-wid="${w.id}">✎ Editar</button><button class="btn small" data-act="favoriteDayWod" data-wid="${w.id}">${w.libraryId&&isFav(w.libraryId)?'★ Favorito':'☆ Guardar favorito'}</button>${plan?`<button class="btn small danger" data-act="deletewod" data-wid="${w.id}">×</button>`:''}</div>`;
+ return `<article class="item ${a.done?'doneitem':''}"><div class="itemhead"><div><div class="itemname">${safe(w.title)} ${a.done?'<span class="highlight">✓</span>':''}</div><div class="badges"><span class="chip yellow">${safe(w.format||'Otro')}</span>${w.source?`<span class="chip">${safe(w.source)}</span>`:''}</div></div>${actions}</div>
+ <div class="wodtext">${safe(w.text||'WOD pendiente de configurar')}</div>
+ ${plan?'':`<div class="logpanel"><div class="flex between"><label class="checkline"><input type="checkbox" data-donewod="${w.id}" ${a.done?'checked':''}> WOD realizado</label><button class="btn small" data-act="goto-library" data-bid="${b.id}">+ WOD desde biblioteca</button></div>
+ <div class="loggrid" style="margin-top:10px"><div class="field"><label>Tiempo</label><input data-wodlog="${w.id}" data-field="time" placeholder="12:35" value="${safe(a.time||'')}"></div><div class="field"><label>Rondas</label><input data-wodlog="${w.id}" data-field="rounds" placeholder="5+12" value="${safe(a.rounds||'')}"></div><div class="field wide"><label>Resultado / score</label><input data-wodlog="${w.id}" data-field="score" placeholder="Cal, metros, total..." value="${safe(a.score||'')}"></div><div class="field wide"><label>Comentarios / pesos utilizados</label><textarea data-wodlog="${w.id}" data-field="notes" placeholder="Cargas, sensaciones y modificaciones">${safe(a.notes||'')}</textarea></div></div>
+ ${a.done&&!a.time&&!a.rounds&&!a.score&&!a.notes?'<div class="log-hint">WOD completado seg\u00fan lo planificado. Se ha guardado una copia del texto del WOD, pero no se inventa un tiempo ni un resultado.</div>':''}
+ </div>`}
+ </article>`;
+}
+function renderHistory(){
+ const keys=Object.keys(db.weeks).sort().reverse();
+ return `<section class="paper"><div class="lead"><div><span class="eyebrow">Archivo personal</span><h2>Historial completo</h2><p>Todas tus semanas se conservan. Selecciona una para ver exactamente lo que programaste y registraste.</p></div><button class="btn" data-act="jumpweek" data-week="${thisWeek()}">Ir a esta semana</button></div>
+ <div class="history-list">${keys.map(k=>{const w=db.weeks[k],c=countDone(k);return `<button class="history-item" data-act="openhistory" data-week="${k}"><strong>${safe(prettyWeek(k))}</strong><small>${c.done} de ${c.total} actividades realizadas</small><div class="badges">${w.days.map((d,i)=>{const n=d.blocks.reduce((z,b)=>z+b.items.filter(e=>e.actual?.done).length+b.wods.filter(x=>x.actual?.done).length,0);return `<span class="chip ${n?'green':''}">${['L','M','X','J','V','S','D'][i]} ${n?'✓ '+n:'—'}</span>`}).join('')}</div><span class="smalltext">Abrir semana →</span></button>`}).join('')}</div></section>`;
+}
+function renderLibrary(){
+ const cats=[...new Set(libraryAll().map(x=>x.category||'Otro'))].sort();
+ return `<section class="paper"><div class="lead"><div><span class="eyebrow">${(db.libraryWods||[]).length} WOD privados importados</span><h2>Biblioteca de WOD</h2><p>Busca por ejercicio, categor\u00eda, formato o fuente. Los PDF y su contenido <strong>no se publican en GitHub</strong>.</p></div><div class="actions"><button class="btn primary" data-act="importlibrary">\u2191 Importar biblioteca privada</button><button class="btn" data-act="newcustomwod">+ Crear WOD</button></div></div>
+ ${(db.libraryWods||[]).length?'':`<div class="banner"><strong>Primera vez:</strong> selecciona el archivo <code>Entrenardos_Biblioteca_WOD_PRIVADA.json</code> que has guardado en Archivos / iCloud. Se importar\u00e1n los WOD a este navegador del m\u00f3vil, sin subirlos a GitHub.</div>`}
+ ${ui.addContext?`<div class="banner"><strong>Destino:</strong> ${safe(DAYNAMES[ui.addContext.day])} \u00b7 ${safe(prettyWeek(ui.addContext.week))}. Al pulsar \u00abA\u00f1adir a mi d\u00eda\u00bb se incorporar\u00e1 aqu\u00ed. <button class="btn small" data-act="clearcontext">Quitar destino</button></div>`:''}
+ <div class="library-toolbar"><div class="field"><label>Buscar cualquier ejercicio o palabra</label><input id="libSearch" value="${safe(ui.libraryQuery)}" placeholder="power clean, T2B, trineo, remo..."></div>
+ <div class="field"><label>Categor\u00eda</label><select id="libCategory"><option value="">Todas las categor\u00edas</option>${cats.map(x=>`<option ${x===ui.libraryCategory?'selected':''} value="${safe(x)}">${safe(x)}</option>`).join('')}</select></div>
+ <div class="field"><label>Tipo de WOD</label><select id="libType"><option value="">Todos los formatos</option>${TYPES.map(x=>`<option ${x===ui.libraryType?'selected':''} value="${safe(x)}">${safe(x)}</option>`).join('')}</select></div></div>
+ <div id="libraryCards"></div></section>`;
+}
+function renderLibraryCards(){
+ if(ui.page!=='biblioteca')return;let all=libraryAll(),q=normalizeWodSearch(ui.libraryQuery);
+ if(q){const tokens=q.split(/\s+/).filter(Boolean);all=all.filter(w=>tokens.every(token=>searchCorpus(w).includes(token)));}
+ if(ui.libraryCategory)all=all.filter(w=>w.category===ui.libraryCategory);
+ if(ui.libraryType)all=all.filter(w=>w.format===ui.libraryType);
+ const sorted=[...all].sort((a,b)=>(isFav(b.id)?1:0)-(isFav(a.id)?1:0));
+ $('#libraryCards').innerHTML=`<p class="library-status">${sorted.length} WOD encontrados · Mostrando ${Math.min(sorted.length,ui.libraryLimit)}</p>
+ ${sorted.length?`<div class="grid2">${sorted.slice(0,ui.libraryLimit).map(x=>wodCard(x)).join('')}</div>`:'<div class="empty">No se encontraron WOD. Prueba otro ejercicio o elimina los filtros.</div>'}
+ ${sorted.length>ui.libraryLimit?'<div class="flex" style="justify-content:center;margin:14px"><button class="btn primary" data-act="morelibrary">Mostrar 24 WOD más</button></div>':''}`;
+}
+function wodCard(x){
+ return `<article class="workout-card"><div class="flex between"><span class="chip yellow">${safe(x.format||'Otro')}</span><span class="chip">${safe(x.category||'WOD')}</span></div>${x.originalCategory&&x.originalCategory!==x.category?`<p class="smalltext subtle" style="margin:5px 0">Categoría original: <strong>${safe(x.originalCategory)}</strong></p>`:''}<h3>${safe(x.title)}</h3>
+ <p class="meta">${safe(x.source||'Creado por ti')}${x.day?' · '+safe(x.day):''}${x.page?' · pág. '+x.page:''}${x.level?' · Nivel '+x.level:''}</p>
+ ${x.movements?.length?`<div class="badges">${x.movements.slice(0,5).map(m=>`<span class="chip">${safe(m)}</span>`).join('')}</div>`:''}
+ <details><summary>Ver WOD completo</summary><div class="wodtext">${safe(x.text)}</div></details>
+ <div class="actions"><button class="btn small primary" data-act="usewod" data-wid="${x.id}">+ Añadir a mi día</button><button class="btn small" data-act="togglefav" data-wid="${x.id}">${isFav(x.id)?'★ Guardado':'☆ Favorito'}</button>${db.customWods.some(a=>a.id===x.id)?`<button class="btn small" data-act="editcustomwod" data-wid="${x.id}">Editar</button><button class="btn small danger" data-act="deletecustomwod" data-wid="${x.id}">Eliminar</button>`:''}</div></article>`;
+}
+function renderFavorites(){const arr=db.favorites.map(findWodById).filter(Boolean);return `<section class="paper"><div class="lead"><div><span class="eyebrow">Mis favoritos</span><h2>WOD que quieres repetir</h2><p>Puedes guardarlos desde tu entrenamiento o desde la biblioteca, y reutilizarlos cuando quieras.</p></div><button class="btn" data-nav="biblioteca">Abrir biblioteca</button></div>
+ ${arr.length?`<div class="grid2">${arr.map(x=>wodCard(x)).join('')}</div>`:'<div class="empty">Todavía no tienes favoritos. Pulsa ☆ en un WOD de la biblioteca o «Guardar favorito» desde tu semana.</div>'}</section>`;}
+function renderRms(){return `<section class="paper"><div class="lead"><div><span class="eyebrow">Referencia para los porcentajes</span><h2>Mis récords personales (RM)</h2><p>Al modificar un RM se recalculan automáticamente los kilos objetivo de los ejercicios vinculados. Los kilos reales que registraste nunca se cambian.</p></div><button class="btn primary" data-act="addrm">+ Añadir RM</button></div>
+ <div class="helper">Ejemplo: Power Clean = 93 kg · 70% = <strong>${weightText(Math.round(93*.7/(num(db.settings.stepKg,2.5)||2.5))*(num(db.settings.stepKg,2.5)||2.5))}</strong>. Los porcentajes se redondean al salto configurado.</div>
+ <div style="margin-top:15px">${db.rms.map(r=>`<div class="rm-row"><div><strong>${safe(r.name)}</strong><span class="tiny subtle">1 RM</span></div><input inputmode="decimal" data-rm="${r.id}" aria-label="RM ${safe(r.name)}" value="${safe(pnum(r.value))}"><button class="btn icon small danger" data-act="removerm" data-rmid="${r.id}" title="Eliminar RM">×</button></div>`).join('')}</div>
+ <div class="formgrid" style="margin-top:16px"><div class="field"><label>Redondeo de pesos (kg)</label><select id="roundStep">${[0.5,1,2.5,5].map(x=>`<option value="${x}" ${num(db.settings.stepKg)===x?'selected':''}>${pnum(x)} kg</option>`).join('')}</select></div><div class="field" style="align-self:end"><span class="smalltext subtle">Los RM también se guardan en tus copias JSON.</span></div></div></section>`;}
+function renderCopies(){return `<section class="paper"><div><span class="eyebrow">Seguridad de los datos</span><h2>Copias de seguridad</h2><p class="subtle">La programaci\u00f3n, los registros y tu <strong>biblioteca privada de WOD</strong> est\u00e1n guardados en este navegador. GitHub Pages no los guarda ni sincroniza.</p></div>
+ <div class="grid2" style="margin:20px 0"><div class="workout-card"><h3>\u2193 Descargar mis datos</h3><p class="smalltext">Incluye tus RM, TODAS las semanas, registros reales, WOD personalizados, favoritos y los WOD privados que hayas importado.</p><button class="btn primary full" data-act="backup">Descargar copia JSON completa</button></div><div class="workout-card"><h3>\u2191 Restaurar copia</h3><p class="smalltext">Selecciona el JSON desde tu tel\u00e9fono para recuperar todos tus datos y tu biblioteca en otro m\u00f3vil.</p><button class="btn full" data-act="restore">Seleccionar copia JSON</button></div><div class="workout-card"><h3>Biblioteca privada</h3><p class="smalltext">Importa el archivo original con 562 WOD. Se guarda localmente y tambi\u00e9n se incorpora a las copias completas.</p><button class="btn full" data-act="importlibrary">Importar biblioteca WOD</button></div></div>
+ <div class="safety"><strong>Importante:</strong> restaurar una copia sustituye los datos actuales. Guarda el JSON en una carpeta privada de iCloud Drive o Archivos. Nunca lo subas al repositorio p\u00fablico de GitHub.</div>
+ <p class="smalltext subtle">Hay ${Object.keys(db.weeks).length} semanas guardadas, ${db.rms.length} RM, ${db.customWods.length} WOD personalizados, ${(db.libraryWods||[]).length} WOD privados y ${db.favorites.length} favoritos.</p></section>`;}
+let modalDraft=null;
+function showModal(title,content,onSubmit,saveLabel='Guardar cambios'){
+ const dlg=$('#editModal');dlg.innerHTML=`<form id="modalForm"><div class="modalhead"><h2>${safe(title)}</h2><button type="button" class="btn small" data-mact="close" aria-label="Cerrar">✕</button></div><div class="modalbody">${content}<div class="formfoot"><button class="btn" data-mact="close" type="button">Cancelar</button><button type="submit" class="btn primary">${safe(saveLabel)}</button></div></div></form>`;
+ $('#modalForm').addEventListener('submit',e=>{e.preventDefault();try{if(onSubmit(e.currentTarget)!==false){save();dlg.close();modalDraft=null;render();toast('Cambios guardados');}}catch(err){console.error(err);toast('No se han podido guardar los cambios');}});
+ dlg.showModal();
+}
+function fInput(label,name,value='',opts={}){
+ const type=opts.type||'text',ph=opts.placeholder||'';
+ return `<div class="field ${opts.span?'span':''}"><label for="f-${name}">${safe(label)}</label><input id="f-${name}" name="${safe(name)}" type="${safe(type)}" ${opts.min!==undefined?'min="'+safe(opts.min)+'"':''} ${opts.step?'step="'+safe(opts.step)+'"':''} ${opts.required?'required':''} value="${safe(value)}" placeholder="${safe(ph)}"></div>`;
+}
+function fSelect(label,name,value,options){return `<div class="field"><label for="f-${name}">${safe(label)}</label><select id="f-${name}" name="${safe(name)}">${options.map(o=>{const [val,text]=Array.isArray(o)?o:[o,o];return `<option value="${safe(val)}" ${String(val)===String(value)?'selected':''}>${safe(text)}</option>`}).join('')}</select></div>`;}
+function fTextArea(label,name,value='',placeholder=''){return `<div class="field span"><label for="f-${name}">${safe(label)}</label><textarea id="f-${name}" name="${safe(name)}" placeholder="${safe(placeholder)}">${safe(value)}</textarea></div>`;}
+function fd(form,name){return new FormData(form).get(name)||'';}
+function openBlockModal(bid=null){
+ const existing=bid?getBlock(bid):null;
+ showModal(existing?'Editar bloque':'Nuevo bloque',`<div class="formgrid">${fInput('Nombre del bloque','title',existing?.title||'',{required:true,span:true})}${fSelect('Categoría','category',existing?.category||'Fuerza',CATEGORIES)}</div>`,form=>{
+  const name=fd(form,'title').trim();if(!name)return false;
+  if(existing){existing.title=name;existing.category=fd(form,'category');}
+  else curDay().blocks.push(block(name,fd(form,'category')));
+ });
+}
+function openDayModal(){showModal('Editar encabezado del día',`<div class="formgrid">${fInput('Título del entrenamiento','title',curDay().label,{required:true,span:true})}</div>`,form=>{curDay().label=fd(form,'title').trim();});}
+function modalRowsTemplate(rows){return `<div class="series-head"><span>S</span><span>Reps</span><span>% RM</span><span>kg fijo</span><span>RIR</span></div>${rows.map((r,i)=>`<div class="seriesrow" data-srow="${i}"><span>${i+1}</span><input data-sfield="reps" aria-label="Repeticiones serie ${i+1}" value="${safe(r.reps)}"><input data-sfield="pct" inputmode="decimal" aria-label="Porcentaje serie ${i+1}" value="${safe(r.pct)}"><input data-sfield="fixedKg" inputmode="decimal" aria-label="Peso fijo serie ${i+1}" value="${safe(r.fixedKg)}"><input data-sfield="rir" aria-label="RIR serie ${i+1}" value="${safe(r.rir)}"><span class="tiny subtle" style="grid-column:2/-1" data-tg="${i}"></span></div>`).join('')}`;}
+function collectModalRows(){const modal=$('#editModal');const rows=$$('[data-srow]',modal).map((el)=>{const get=(key)=>el.querySelector(`[data-sfield="${key}"]`)?.value||'';return row(get('reps'),get('pct'),get('rir'),get('fixedKg'));});if(modalDraft)modalDraft.rows=rows;return rows;}
+function drawModalRows(){if(!modalDraft)return;$('#setRows').innerHTML=modalRowsTemplate(modalDraft.rows);updateModalTargets();}
+function updateModalTargets(){const dlg=$('#editModal');if(!modalDraft||!$('#modalRM',dlg))return;const rm=$('#modalRM',dlg).value;
+ $$('[data-srow]',dlg).forEach(el=>{const i=num(el.dataset.srow,0),obj={rmId:rm};const rowx={pct:el.querySelector('[data-sfield="pct"]')?.value||'',fixedKg:el.querySelector('[data-sfield="fixedKg"]')?.value||''};const k=calcKg(obj,rowx);const target=$(`[data-tg="${i}"]`,dlg);if(target)target.textContent=k!==null?'Objetivo calculado: '+weightText(k):'Sin carga calculada: usa % RM o kg fijo';});}
+function openExModal(bid,eid=null){
+ const b=getBlock(bid);if(!b)return;
+ const existing=eid?b.items.find(e=>e.id===eid):null;
+ modalDraft=existing?clone(existing):ex('',{n:4,reps:8,rir:'1-2'});
+ const rmOptions=[['','Sin referencia al RM'],...db.rms.map(r=>[r.id,`${r.name} (${pnum(r.value)} kg)`])];
+ const form=`<div class="formgrid">
+ ${fInput('Nombre del ejercicio','exname',modalDraft.name,{required:true,span:true})}
+ ${fSelect('Tipo de serie','scheme',modalDraft.scheme,SCHEMES)}
+ <div class="field"><label for="modalRM">Vincular a un RM (opcional)</label><select name="rmId" id="modalRM">${rmOptions.map(([v,t])=>`<option value="${safe(v)}" ${v===modalDraft.rmId?'selected':''}>${safe(t)}</option>`).join('')}</select></div>
+ ${fInput('Duración total (min, opcional)','duration',modalDraft.durationMin,{placeholder:'10'})}
+ ${fInput('Descanso por serie (s)','rest',modalDraft.restSec,{placeholder:'120'})}
+ ${fTextArea('Notas técnicas / progresión','notes',modalDraft.notes,'Pausas, velocidad, consignas...')}
+ </div>
+ <div class="series-edit"><div class="flex between"><h3 style="margin:0">Series y objetivos</h3><span class="tiny subtle">Planificados, no ejecutados</span></div><p class="smalltext subtle">Puedes indicar un % de cualquier RM o kilos fijos. Si hay ambos, prevalecen los kilos fijos.</p>
+ <div class="flex" style="margin:12px 0"><button class="btn small" type="button" data-mact="addrow">+ Serie</button><button class="btn small" type="button" data-mact="removerow">− Serie</button><span class="smalltext" id="seriesCount">${modalDraft.rows.length} series</span></div>
+ <div class="formgrid" style="grid-template-columns:repeat(4,minmax(0,1fr));gap:5px"><div class="field"><label>Reps</label><input id="quickReps" placeholder="8"></div><div class="field"><label>% RM</label><input id="quickPct" placeholder="70"></div><div class="field"><label>kg fijos</label><input id="quickKg" placeholder="50"></div><div class="field"><label>RIR</label><input id="quickRir" placeholder="1-2"></div></div>
+ <button class="btn small" type="button" data-mact="applyall" style="margin:10px 0">Aplicar campos escritos a todas las series</button>
+ <div id="setRows">${modalRowsTemplate(modalDraft.rows)}</div></div>`;
+ showModal(existing?'Editar ejercicio y sus porcentajes':'Añadir ejercicio',form,formEl=>{
+  collectModalRows();const x=modalDraft;x.name=fd(formEl,'exname').trim();if(!x.name){toast('Escribe el nombre');return false;}
+  x.scheme=fd(formEl,'scheme');x.durationMin=fd(formEl,'duration');x.restSec=fd(formEl,'rest');x.rmId=fd(formEl,'rmId');x.notes=fd(formEl,'notes');
+  if(!x.rows.length){toast('Introduce al menos una serie');return false;}
+  if(existing){existing.name=x.name;existing.scheme=x.scheme;existing.durationMin=x.durationMin;existing.restSec=x.restSec;existing.rmId=x.rmId;existing.notes=x.notes;existing.rows=x.rows;}
+  else b.items.push(x);
+ });
+ updateModalTargets();
+}
+function openWodModal(bid,wid=null){
+ const b=getBlock(bid);if(!b)return;const existing=wid?b.wods.find(w=>w.id===wid):null;
+ const seed=existing?clone(existing):wod('','');
+ const form=`<div class="formgrid">${fInput('Nombre del WOD','title',seed.title||'',{required:true,span:true})}${fSelect('Formato','format',seed.format||'Otro',TYPES)}${fTextArea('Escribe el WOD completo','text',seed.text,'Ej.: 5 RFT\n10 T2B\n15 C2B\n30 m trineo')}</div><p class="smalltext subtle">Después puedes guardarlo como favorito desde el entrenamiento con ☆. También podrás modificar el WOD aunque el día ya haya llegado.</p>`;
+ showModal(existing?'Editar WOD':'Crear WOD',form,fo=>{
+  const title=fd(fo,'title').trim(),text=fd(fo,'text').trim();if(!title||!text){toast('Escribe nombre y contenido');return false;}
+  if(existing){const matched=existing.libraryId&&findWodById(existing.libraryId);if(matched&&(matched.text!==text||matched.title!==title))existing.libraryId='';existing.title=title;existing.text=text;existing.format=fd(fo,'format');}
+  else{const n=wod(title,text,{format:fd(fo,'format')});b.wods.push(n);}
+ });
+}
+function openCustomWodModal(wid=null){const old=wid?db.customWods.find(x=>x.id===wid):null;
+ const form=`<div class="formgrid">${fInput('Nombre del WOD','title',old?.title||'',{required:true,span:true})}${fSelect('Categoría','category',old?.category||'WOD',['WOD','ENGINE','CONDITIONING','WORKOUT','GRIND','ACCESSORY WOD','GYM ENGINE'])}${fSelect('Formato','format',old?.format||'Otro',TYPES)}${fTextArea('Estructura completa','text',old?.text||'','5 RFT\n10 T2B\n15 C2B\n30 m trineo')}</div>`;
+ showModal(old?'Editar WOD de biblioteca':'Añadir WOD a biblioteca',form,f=>{
+ const title=fd(f,'title').trim(),text=fd(f,'text').trim();if(!title||!text){toast('Introduce nombre y contenido');return false;}
+ if(old){Object.assign(old,{title,text,category:fd(f,'category'),format:fd(f,'format')});}
+ else db.customWods.unshift({id:id('mywod'),title,text,category:fd(f,'category'),originalCategory:'Mis WOD',format:fd(f,'format'),movements:[],source:'Creado por ti',day:'',page:0});
+ });
+}
+function openRmModal(){showModal('Añadir RM',`<div class="formgrid">${fInput('Nombre del ejercicio','rmName','',{required:true})}${fInput('1RM en kg','rmValue','',{required:true,placeholder:'92,5'})}</div>`,f=>{
+ const name=fd(f,'rmName').trim(),value=num(fd(f,'rmValue'));if(!name||!Number.isFinite(value)||value<=0){toast('Introduce un RM válido');return false;}
+ if(db.rms.some(r=>fold(r.name)===fold(name))){toast('Este ejercicio ya tiene RM. Puedes editarlo en la lista.');return false;}
+ db.rms.push({id:id('rm'),name,value});
+ });}
+function openDestinationModal(wid){
+ const keys=[ui.week,thisWeek(),nextWeek(),...Object.keys(db.weeks)].filter((x,i,a)=>a.indexOf(x)===i).sort();
+ const options=keys.map(k=>[k,prettyWeek(k)]);
+ showModal('Añadir WOD al entrenamiento',`<div class="formgrid">${fSelect('Semana destino','week',ui.week,options)}${fSelect('Día destino','day',String(ui.day),DAYNAMES.map((name,i)=>[String(i),name]))}</div><p class="smalltext subtle">El WOD se copiará al día elegido. Podrás editarlo después sin modificar la biblioteca.</p>`,form=>{addLibraryWod(wid,fd(form,'week'),num(fd(form,'day'),0),null);},'Añadir a ese día');
+}
+function addLibraryWod(wid,targetWeek,targetDay,bid){
+ const src=findWodById(wid);if(!src){toast('No se encuentra ese WOD');return;}
+ const target=ensureWeek(targetWeek).days[targetDay];let blockref=target.blocks.find(b=>b.id===bid);
+ if(!blockref){blockref=target.blocks.find(b=>b.category==='WOD');if(!blockref){blockref=block('WOD','WOD');target.blocks.push(blockref);}}
+ blockref.wods.push(wod(src.title,src.text,{format:src.format,source:src.source,libraryId:src.id}));
+ ui.week=targetWeek;ui.day=targetDay;ui.page='semana';ui.addContext=null;save();render();toast('WOD añadido al entrenamiento');
+}
+function toggleFavorite(wid){const at=db.favorites.indexOf(wid);if(at>=0)db.favorites.splice(at,1);else db.favorites.unshift(wid);save();render();toast(at>=0?'Favorito eliminado':'WOD guardado en favoritos');}
+function favoriteDayWod(wid){const o=getWod(wid);if(!o)return;const w=o.x;let lib=w.libraryId?findWodById(w.libraryId):null;
+ if(!lib||lib.text!==w.text||lib.title!==w.title){lib=db.customWods.find(x=>x.text===w.text&&x.title===w.title);
+  if(!lib){lib={id:id('mywod'),title:w.title,text:w.text,category:'WOD',originalCategory:'WOD propio',format:w.format||'Otro',source:'Guardado desde mi entrenamiento',movements:[],day:'',page:0};db.customWods.unshift(lib);}
+  w.libraryId=lib.id;
+ }
+ if(!isFav(lib.id))db.favorites.unshift(lib.id);save();render();toast('WOD guardado en favoritos y en tu biblioteca personal');
+}
+function move(arr,entry,delta){const i=arr.indexOf(entry),j=i+delta;if(i<0||j<0||j>=arr.length)return false;[arr[i],arr[j]]=[arr[j],arr[i]];return true;}
+function plannedExerciseSnapshot(e){
+ return {name:e.name,scheme:e.scheme,durationMin:e.durationMin,restSec:e.restSec,rmId:e.rmId,
+   rows:e.rows.map(r=>({reps:r.reps,pct:r.pct,rir:r.rir,fixedKg:r.fixedKg,kg:calcKg(e,r)})),
+   recordedAt:new Date().toISOString()};
+}
+function fillActualFromPlan(e,overwrite=false){
+ const a=e.actual;a.summary=a.summary||{kg:'',reps:'',rir:'',rest:'',notes:''};
+ ensureActualRows(e);
+ const keep=(old,value)=>overwrite?String(value??''):(old!==undefined&&old!==null&&String(old)!==''?String(old):String(value??''));
+ e.rows.forEach((r,i)=>{
+  const planned={kg:calcKg(e,r)===null?'':String(calcKg(e,r)),reps:String(r.reps||''),rir:String(r.rir||''),rest:String(e.restSec||'')};
+  a.rows[i]=a.rows[i]||{kg:'',reps:'',rir:'',rest:''};
+  for(const f of ['kg','reps','rir','rest'])a.rows[i][f]=keep(a.rows[i][f],planned[f]);
+ });
+ const uniform=field=>{const values=a.rows.map(r=>String(r[field]||''));return values.length&&values[0]&&values.every(v=>v===values[0])?values[0]:'';};
+ for(const key of ['kg','reps','rir','rest']){
+  const u=uniform(key);if(overwrite)a.summary[key]=u;
+  else if(!a.summary[key]&&u)a.summary[key]=u;
+ }
+ a.plannedSnapshot=plannedExerciseSnapshot(e);
+}
+function copyPlanToActual(e){
+ const a=e.actual||{},s=a.summary||{};
+ const hasManual=Object.values(s).some(Boolean)||(a.rows||[]).some(r=>Object.values(r).some(Boolean));
+ if(hasManual&&!confirm('Hay valores registrados. \u00bfQuieres reemplazarlos por lo programado?'))return;
+ fillActualFromPlan(e,true);save();render();toast('Plan copiado a las series reales. Puedes ajustar los valores.');
+}
+async function importPrivateLibrary(file){
+ if(!file)return;let parsed;
+ try{parsed=JSON.parse(await file.text());}catch{toast('El archivo de biblioteca no es un JSON v\u00e1lido');return;}
+ const incoming=Array.isArray(parsed)?parsed:parsed?.wods;
+ if(!Array.isArray(incoming)||!incoming.length||incoming.length>20000||incoming.some(w=>!w||typeof w.id!=='string'||typeof w.title!=='string'||typeof w.text!=='string')){toast('No es una biblioteca de WOD compatible');return;}
+ const existing=new Map((db.libraryWods||[]).map(w=>[w.id,w]));
+ for(const w of incoming)existing.set(w.id,w);
+ db.libraryWods=[...existing.values()];
+ if(!save())return;
+ ui.libraryLimit=24;render();toast(incoming.length+' WOD importados en este navegador.');
+}
+function downloadBackup(){
+ const payload={format:'entrenardos-backup-v3',exportedAt:new Date().toISOString(),libraryIncluded:'SI: incluye todos los WOD privados dentro de data.libraryWods',data:db,favoriteSnapshots:db.favorites.map(findWodById).filter(Boolean)};
+ const str=JSON.stringify(payload,null,2);const blob=new Blob([str],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Entrenardos_copia_COMPLETA_'+iso(today())+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Copia completa: guarda el JSON en un lugar privado.');
+}
+async function restoreBackup(file){
+ if(!file)return;let parsed;
+ try{parsed=JSON.parse(await file.text());}catch{toast('El archivo no es un JSON v\u00e1lido');return;}
+ if(parsed?.format!=='entrenardos-backup-v3'||parsed?.data?.version!==3||!Array.isArray(parsed.data.rms)||!parsed.data.weeks||!Array.isArray(parsed.data.customWods)||!Array.isArray(parsed.data.favorites)){toast('No es una copia compatible con Entrenardos V3');return;}
+ if(!confirm('\u00bfRestaurar esta copia? Los datos actuales del navegador ser\u00e1n sustituidos.'))return;
+ const incoming=parsed.data;
+ if(!Array.isArray(incoming.libraryWods))incoming.libraryWods=[];
+ for(const snapshot of parsed.favoriteSnapshots||[]){if(snapshot?.id&&!incoming.customWods.some(x=>x.id===snapshot.id)&&!incoming.libraryWods.some(x=>x.id===snapshot.id))incoming.customWods.push(snapshot);}
+ db=incoming;ui.week=db.weeks[thisWeek()]?thisWeek():Object.keys(db.weeks).sort().at(-1)||thisWeek();ui.day=0;ui.page='semana';ui.mode='registrar';
+ if(save()){render();toast('Copia restaurada: RM, historial, registros y biblioteca.');}
+}
+document.addEventListener('click',ev=>{
+ const nav=ev.target.closest('[data-nav]');if(nav){ui.page=nav.dataset.nav;ui.libraryLimit=24;if(ui.page==='biblioteca')ui.addContext=null;render();window.scrollTo({top:0,behavior:'auto'});return;}
+ const m=ev.target.closest('[data-mact]');if(m){
+  const act=m.dataset.mact;if(act==='close'){$('#editModal').close();modalDraft=null;}
+  if(act==='addrow'&&modalDraft){collectModalRows();modalDraft.rows.push(row());drawModalRows();}
+  if(act==='removerow'&&modalDraft){collectModalRows();if(modalDraft.rows.length>1)modalDraft.rows.pop();drawModalRows();}
+  if(act==='applyall'&&modalDraft){collectModalRows();const pairs=[['reps','#quickReps'],['pct','#quickPct'],['fixedKg','#quickKg'],['rir','#quickRir']];for(const [field,sel] of pairs){const value=$(sel)?.value;if(value!==undefined&&value!=='')modalDraft.rows.forEach(r=>r[field]=value);}drawModalRows();}
+  return;
+ }
+ const b=ev.target.closest('[data-act]');if(!b)return;
+ ev.preventDefault();const act=b.dataset.act;
+ try{
+  if(act==='mode'){ui.mode=b.dataset.mode;render();}
+  else if(act==='day'){ui.day=Number(b.dataset.day);render();}
+  else if(act==='shiftweek'){ui.week=iso(addDays(fromKey(ui.week),Number(b.dataset.delta)));ensureWeek(ui.week);render();}
+  else if(act==='jumpweek'){ui.week=b.dataset.week;ensureWeek(ui.week);ui.page='semana';ui.day=ui.week===thisWeek()?(today().getDay()+6)%7:0;render();}
+  else if(act==='openhistory'){ui.week=b.dataset.week;ui.page='semana';ui.mode='registrar';ui.day=0;render();}
+  else if(act==='addblock'){openBlockModal();}
+  else if(act==='editblock'){openBlockModal(b.dataset.bid);}
+  else if(act==='deleteblock'){const bl=getBlock(b.dataset.bid);if(bl&&confirm(`¿Eliminar el bloque «${bl.title}» con todos sus ejercicios y registros?`)){curDay().blocks=curDay().blocks.filter(x=>x!==bl);save();render();}}
+  else if(act==='moveblock'){const bl=getBlock(b.dataset.bid);if(bl&&move(curDay().blocks,bl,Number(b.dataset.delta))){save();render();}}
+  else if(act==='addex'){openExModal(b.dataset.bid);}
+  else if(act==='editex'){const x=getEx(b.dataset.eid);if(x)openExModal(x.block.id,x.x.id);}
+  else if(act==='deleteex'){const x=getEx(b.dataset.eid);if(x&&confirm(`¿Eliminar el ejercicio «${x.x.name}» y su registro?`)){x.block.items=x.block.items.filter(v=>v.id!==x.x.id);save();render();}}
+  else if(act==='moveex'){const x=getEx(b.dataset.eid);if(x&&move(x.block.items,x.x,Number(b.dataset.delta))){save();render();}}
+  else if(act==='addwod'){openWodModal(b.dataset.bid);}
+  else if(act==='editwod'){const x=getWod(b.dataset.wid);if(x)openWodModal(x.block.id,x.x.id);}
+  else if(act==='deletewod'){const x=getWod(b.dataset.wid);if(x&&confirm(`¿Eliminar «${x.x.title}» de este día?`)){x.block.wods=x.block.wods.filter(v=>v.id!==x.x.id);save();render();}}
+  else if(act==='copyplan'){const x=getEx(b.dataset.eid);if(x)copyPlanToActual(x.x);}
+  else if(act==='editday'){openDayModal();}
+  else if(act==='carryloads'){const prev=iso(addDays(fromKey(ui.week),-7));if(!db.weeks[prev]){toast('No hay semana anterior registrada');return;}const n=carryActualWeights(db.weeks[prev],week());if(n){save();render();toast(`${n} pesos reales trasladados a la planificación`);}else toast('No hay pesos reales nuevos aplicables (los ejercicios con %RM conservan sus porcentajes)');}
+  else if(act==='copyprior'){const prev=iso(addDays(fromKey(ui.week),-7));if(!db.weeks[prev]){toast('No hay programación guardada para la semana anterior');return;}if(confirm('¿Sustituir la programación completa de esta semana por la anterior? Se borrarán los registros de esta semana.')){db.weeks[ui.week]=clone(db.weeks[prev]);for(const d of db.weeks[ui.week].days)for(const bl of d.blocks){for(const x of bl.items)resetActual(x);for(const w of bl.wods)w.actual={done:false,completedAt:'',time:'',rounds:'',score:'',notes:''};}save();render();}}
+  else if(act==='goto-library'){ui.addContext={week:ui.week,day:ui.day,blockId:b.dataset.bid||''};ui.page='biblioteca';ui.libraryLimit=24;render();window.scrollTo({top:0,behavior:'auto'});}
+  else if(act==='clearcontext'){ui.addContext=null;render();}
+  else if(act==='morelibrary'){ui.libraryLimit+=24;renderLibraryCards();}
+  else if(act==='usewod'){if(ui.addContext)addLibraryWod(b.dataset.wid,ui.addContext.week,ui.addContext.day,ui.addContext.blockId);else openDestinationModal(b.dataset.wid);}
+  else if(act==='togglefav'){toggleFavorite(b.dataset.wid);}
+  else if(act==='favoriteDayWod'){favoriteDayWod(b.dataset.wid);}
+  else if(act==='newcustomwod'){openCustomWodModal();}
+  else if(act==='editcustomwod'){openCustomWodModal(b.dataset.wid);}
+  else if(act==='deletecustomwod'){const w=db.customWods.find(x=>x.id===b.dataset.wid);if(w&&confirm('¿Eliminar este WOD personalizado de la biblioteca? Los ya programados seguirán en su día.')){db.customWods=db.customWods.filter(x=>x.id!==w.id);db.favorites=db.favorites.filter(x=>x!==w.id);save();render();}}
+  else if(act==='addrm'){openRmModal();}
+  else if(act==='removerm'){const r=db.rms.find(x=>x.id===b.dataset.rmid);if(r&&confirm(`¿Eliminar el RM de ${r.name}? Los ejercicios vinculados dejarán de calcular su peso hasta seleccionar otra referencia.`)){db.rms=db.rms.filter(x=>x.id!==r.id);save();render();}}
+  else if(act==='backup'){downloadBackup();}
+  else if(act==='restore'){$('#restoreFile').click();}
+  else if(act==='importlibrary'){$('#libraryFile').click();}
+ }catch(err){console.error('Acción fallida',act,err);toast('No se pudo completar la acción: revisa los datos');}
+});
+document.addEventListener('input',ev=>{
+ const el=ev.target;
+ if(el.id==='libSearch'){ui.libraryQuery=el.value;ui.libraryLimit=24;renderLibraryCards();return;}
+ if(el.hasAttribute('data-daynote')){curDay().notes=el.value;save();return;}
+ if(el.hasAttribute('data-exlog')){const o=getEx(el.dataset.exlog);if(o){o.x.actual.summary[el.dataset.field]=el.value;save();}return;}
+ if(el.hasAttribute('data-exset')){const o=getEx(el.dataset.exset);if(o){ensureActualRows(o.x);o.x.actual.rows[Number(el.dataset.si)][el.dataset.field]=el.value;save();}return;}
+ if(el.hasAttribute('data-wodlog')){const o=getWod(el.dataset.wodlog);if(o){o.x.actual[el.dataset.field]=el.value;save();}return;}
+ if(el.closest('#editModal')&&($('#modalRM')||el.hasAttribute('data-sfield'))){updateModalTargets();}
+});
+document.addEventListener('change',ev=>{
+ const el=ev.target;
+ if(el.id==='libCategory'){ui.libraryCategory=el.value;ui.libraryLimit=24;renderLibraryCards();return;}
+ if(el.id==='libType'){ui.libraryType=el.value;ui.libraryLimit=24;renderLibraryCards();return;}
+ if(el.id==='roundStep'){db.settings.stepKg=num(el.value,2.5);save();render();return;}
+ if(el.hasAttribute('data-rm')){const r=db.rms.find(x=>x.id===el.dataset.rm);if(r){const n=num(el.value);if(!Number.isFinite(n)||n<=0){toast('Introduce un RM positivo');render();return;}r.value=n;save();render();toast('RM actualizado: porcentajes recalculados');}return;}
+ if(el.hasAttribute('data-doneex')){const o=getEx(el.dataset.doneex);if(o){
+  if(el.checked){fillActualFromPlan(o.x,false);o.x.actual.done=true;o.x.actual.completedAt=new Date().toISOString();}
+  else{o.x.actual.done=false;o.x.actual.completedAt='';}
+  save();render();if(el.checked)toast('Realizado: los valores programados se han copiado a cada serie.');
+ }return;}
+ if(el.hasAttribute('data-donewod')){const o=getWod(el.dataset.donewod);if(o){
+  o.x.actual.done=el.checked;o.x.actual.completedAt=el.checked?new Date().toISOString():'';
+  if(el.checked)o.x.actual.plannedSnapshot={title:o.x.title,text:o.x.text,format:o.x.format,source:o.x.source};
+  save();render();if(el.checked)toast('WOD marcado: texto planificado guardado; a\u00f1ade el resultado si lo tienes.');
+ }return;}
+});
+$('#restoreFile').addEventListener('change',async e=>{await restoreBackup(e.target.files?.[0]);e.target.value='';});
+$('#libraryFile').addEventListener('change',async e=>{await importPrivateLibrary(e.target.files?.[0]);e.target.value='';});
+$('#editModal').addEventListener('close',()=>{modalDraft=null;});
+window.addEventListener('storage',e=>{if(e.key===STORE_KEY&&e.newValue){try{const fresh=JSON.parse(e.newValue);if(fresh.version===3){db=fresh;render();toast('Datos actualizados desde otra pestaña');}}catch{}}});
+if(!storageSupported){$('#saveLabel').textContent='⚠ Este navegador no permite guardar datos';$('#stateStatus').textContent='⚠ Sin almacenamiento';}
+init();
+})();
+</script></body></html>
+margin:0 auto;padding:25px 24px 70px}.top{display:flex;gap:20px;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:13px}.logo{height:43px;width:43px;display:grid;place-items:center;border-radius:13px;background:var(--yellow);font-size:23px;font-weight:900}.brand h1{margin:0;font-size:24px;letter-spacing:-.75px;line-height:1.1}.brand small{font-size:12px;color:var(--muted)}
     nav{display:flex;background:#ebebe6;padding:5px;border-radius:13px;gap:4px;flex-wrap:wrap}.navbtn{border:0;border-radius:9px;background:transparent;padding:9px 15px;font-weight:700;color:#555}.navbtn.active{background:white;color:#111;box-shadow:0 1px 6px #0000000e}
     .panel{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:21px}.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}.subtle{color:var(--muted)}.small{font-size:12px}.eyebrow{font-size:11px;letter-spacing:1.3px;text-transform:uppercase;font-weight:800;color:#777}.h2{font-size:22px;line-height:1.2;margin:6px 0 5px;letter-spacing:-.4px}.h3{font-size:17px;margin:0}.intro{margin:0;color:var(--muted);font-size:14px}
     .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 13px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:#161616;min-height:40px}.btn:hover{background:#f6f6f2}.btn.primary{border-color:var(--yellow);background:var(--yellow)}.btn.primary:hover{background:#e8bd23}.btn.ghost{border-color:transparent;background:transparent}.btn.ghost:hover{background:#f5f5f2}.btn.tiny{padding:6px 9px;min-height:31px;font-size:12px}.btn.danger{color:#a52c20}.btn.full{width:100%}
