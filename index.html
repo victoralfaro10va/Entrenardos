@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f1cb39"><meta name="description" content="Entrenardos: diario semanal de entrenamiento, RMs, WODs e historial con copias JSON."><title>Entrenardos · Diario de entrenamiento V3.4</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f1cb39"><meta name="description" content="Entrenardos: diario semanal de entrenamiento, RMs, WODs e historial con copias JSON."><title>Entrenardos · Diario de entrenamiento V3.5</title>
 <style id="entrenardos-inline-style">
 :root{color-scheme:light;--ink:#181a1b;--muted:#62676b;--bg:#f5f5f1;--white:#fff;--line:#e1e1db;--yellow:#f1cb39;--pale:#fff7d6;--green:#23744d;--greenbg:#e9f7ef;--red:#b13f36;--shadow:0 2px 15px rgba(22,22,19,.035)}
 
@@ -418,15 +418,38 @@ input, select, textarea { max-width: 100%; }
 }
 @media (max-width:359px){.wod-actions .btn{font-size:11px;line-height:1.3}}
 
+
+/* V3.5 — Edición de WOD dentro del propio entrenamiento y colecciones independientes */
+.wod-day-card{min-width:0}
+.wod-inline-editor{padding:13px;margin:11px 0;background:#fff9e7;border:1px solid #e7d89c;border-radius:12px;display:grid;gap:11px}
+.wod-inline-editor[hidden],.wod-view[hidden]{display:none!important}
+.wod-inline-intro{font-size:12px;color:#5f625f;line-height:1.5;margin:0}
+.wod-inline-editor .field{min-width:0}
+.wod-inline-editor input,.wod-inline-editor select,.wod-inline-editor textarea{font-size:16px;max-width:100%;width:100%}
+.wod-inline-editor textarea{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:1.58;min-height:190px;resize:vertical;white-space:pre-wrap}
+.wod-inline-buttons{display:flex;gap:8px;flex-wrap:wrap}
+.wod-inline-buttons .btn{flex:1 1 160px;min-height:44px}
+.wod-copy-preview{margin-top:14px}
+.wod-copy-preview .wodtext{max-height:230px;overflow:auto}
+.wod-actions .btn{min-height:42px;flex:1 1 176px}
+@media(max-width:760px){
+ .wod-inline-editor{padding:11px;gap:10px}
+ .wod-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .wod-actions .btn{min-height:48px;flex:initial;padding:9px 5px;line-height:1.25}
+ .wod-inline-buttons{display:grid;grid-template-columns:1fr}
+ .wod-inline-buttons .btn{width:100%;min-height:46px}
+}
+@media(max-width:359px){.wod-actions .btn{font-size:11px;padding:7px 3px}}
+
 </style>
-<link rel="stylesheet" href="./styles.css?v=3.4" id="entrenardos-external-style"></head><body>
+<link rel="stylesheet" href="./styles.css?v=3.5" id="entrenardos-external-style"></head><body>
 <div class="app">
 <header class="header"><div class="brand"><div class="brandmark" aria-hidden="true">E</div><div><h1>Entrenardos</h1><small>Tu entrenamiento, semana a semana</small></div></div><div class="header-actions"><button class="btn primary" data-act="backup">↓ Descargar mis datos</button><button class="btn" data-act="restore">↑ Restaurar copia</button></div></header>
 <nav class="navigation" aria-label="Secciones" id="nav">
 <button class="nav active" data-nav="semana">Semana</button><button class="nav" data-nav="historial">Historial</button><button class="nav" data-nav="biblioteca">Biblioteca WOD</button><button class="nav" data-nav="favoritos">★ Favoritos</button><button class="nav" data-nav="rms">Mis RM</button><button class="nav" data-nav="copias">Copias</button>
 </nav>
 <div class="backupbar"><div><strong id="saveLabel">Guardado en este navegador</strong><span class="subtle">Las copias JSON te permiten recuperar los datos en otro móvil.</span></div><span class="week-status" id="stateStatus">● Guardado local</span></div>
-<main id="appMain"></main><footer class="footer">Entrenardos V3.4 · Los registros son locales a este navegador. Haz una copia de seguridad semanal.</footer></div>
+<main id="appMain"></main><footer class="footer">Entrenardos V3.5 · Los registros son locales a este navegador. Haz una copia de seguridad semanal.</footer></div>
 <dialog class="modal" id="editModal"></dialog><input type="file" id="restoreFile" accept=".json,application/json" class="only-screen-reader"><input type="file" id="libraryFile" accept=".json,application/json" class="only-screen-reader"><div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>(()=>{
 'use strict';
@@ -512,13 +535,14 @@ function initialWeek(){
 }
 function freshDb(){
  const rms=RM_SEED.map(([name,value],i)=>({id:'rm'+(i+1),name,value}));
- const out={version:3,created:new Date().toISOString(),settings:{stepKg:2.5},rms,weeks:{},customWods:[],libraryWods:[],favorites:[]};
+ const out={version:3,created:new Date().toISOString(),settings:{stepKg:2.5},rms,weeks:{},customWods:[],libraryWods:[],favoriteWods:[],favorites:[]};
  return out;
 }
 function init(){
  const raw=storageSupported?localStorage.getItem(STORE_KEY):null;
  if(raw){try{const o=JSON.parse(raw);if(o&&o.version===3&&Array.isArray(o.rms)&&o.weeks&&Array.isArray(o.customWods)&&Array.isArray(o.favorites))db=o;}catch(e){console.warn('Datos anteriores no válidos',e);}}
  if(db&&!Array.isArray(db.libraryWods))db.libraryWods=[];
+ if(db&&!Array.isArray(db.favoriteWods))db.favoriteWods=[];
  if(!db){db=freshDb();const d=today(),base=monday(d);if(d.getDay()===0)base.setDate(base.getDate()+7);db.weeks[iso(base)]=initialWeek();save();}
  const nowWeek=thisWeek();ui.week=db.weeks[nowWeek]?nowWeek:Object.keys(db.weeks).sort().at(-1)||nowWeek;
  const day=(today().getDay()+6)%7;ui.day=ui.week===nowWeek?day:0;
@@ -571,7 +595,7 @@ function weightText(kg){return kg===null?'—':pnum(kg)+' kg';}
 function exGoal(exercise){const ref=db.rms.find(r=>r.id===exercise.rmId);const k=exercise.rows.map(r=>calcKg(exercise,r)).filter(x=>x!==null);const ps=exercise.rows.map(r=>num(r.pct)).filter(Number.isFinite);return {ref,ks:k,ps,first:k[0]??null,last:k.at(-1)??null};}
 function ensureActualRows(e){if(!Array.isArray(e.actual.rows))e.actual.rows=[];while(e.actual.rows.length<e.rows.length)e.actual.rows.push({kg:'',reps:'',rir:'',rest:''});return e.actual.rows;}
 function libraryAll(){return [...db.customWods,...(db.libraryWods||[])];}
-function findWodById(wid){return db.customWods.find(x=>x.id===wid)||(db.libraryWods||[]).find(x=>x.id===wid);}
+function findWodById(wid){return db.customWods.find(x=>x.id===wid)||(db.libraryWods||[]).find(x=>x.id===wid)||(db.favoriteWods||[]).find(x=>x.id===wid);}
 function isFav(wid){return db.favorites.includes(wid);}
 function detectWodType(text){const t=fold(text);if(/amrap\s*\d+/.test(t))return 'AMRAP';if(/\b\d+\s*(?:rft|rondas? for time|rounds? for time)\b/.test(t))return 'RFT';if(/for time/.test(t))return 'For Time';if(/\bemom\b/.test(t))return 'EMOM';if(/\b(?:every|e2mom|e3mom)\b/.test(t))return 'Every / Intervalos';if(/\b(?:on|off|intervalos?)\b/.test(t))return 'Intervalos';return 'Otro';}
 function normalizeWodSearch(q){return fold(q).replace(/\bt2b\b/g,'toes to bar').replace(/\bttb\b/g,'toes to bar').replace(/\bc2b\b/g,'chest to bar').replace(/\bbmu\b/g,'bar muscle up').replace(/\brmu\b/g,'ring muscle up').replace(/\bpc\b/g,'power clean').trim();}
@@ -728,12 +752,27 @@ function renderExLog(e){
 function isEditableWodBlock(b){return /wod|hiit|engine|conditioning|workout|grind/i.test([b.category,b.title].join(' '));}
 function renderDayWod(w,b,plan){
  const a=w.actual||{},isWod=isEditableWodBlock(b);
- const actions=`<div class="wod-actions">${isWod?`<button class="btn small" data-act="editwod" data-wid="${w.id}">✎ Escribir / sustituir</button><button class="btn small primary" data-act="replacewodlib" data-wid="${w.id}">↻ Sustituir desde biblioteca</button>`:`<button class="btn small" data-act="editwod" data-wid="${w.id}">✎ Editar</button>`}<button class="btn small" data-act="favoriteDayWod" data-wid="${w.id}">${w.libraryId&&isFav(w.libraryId)?'★ Favorito':'☆ Guardar favorito'}</button>${plan?`<button class="btn small danger" data-act="deletewod" data-wid="${w.id}">× Eliminar</button>`:''}</div>`;
- return `<article class="item ${a.done?'doneitem':''}"><div class="itemhead"><div><div class="itemname">${safe(w.title)} ${a.done?'<span class="highlight">✓</span>':''}</div><div class="badges"><span class="chip yellow">${safe(w.format||'Otro')}</span>${w.source?`<span class="chip">${safe(w.source)}</span>`:''}</div></div></div>
- <div class="wodtext">${safe(w.text||'WOD pendiente de configurar')}</div>
- ${isWod?'<div class="wod-action-note">Sustituir cambia este mismo WOD. Para añadir otro, utiliza el botón al final del día.</div>':''}${actions}
- ${plan?'':`<div class="logpanel"><label class="checkline"><input type="checkbox" data-donewod="${w.id}" ${a.done?'checked':''}> WOD realizado</label>
- <div class="loggrid" style="margin-top:10px"><div class="field"><label>Tiempo</label><input data-wodlog="${w.id}" data-field="time" placeholder="12:35" value="${safe(a.time||'')}"></div><div class="field"><label>Rondas</label><input data-wodlog="${w.id}" data-field="rounds" placeholder="5+12" value="${safe(a.rounds||'')}"></div><div class="field wide"><label>Resultado / score</label><input data-wodlog="${w.id}" data-field="score" placeholder="Cal, metros, total..." value="${safe(a.score||'')}"></div><div class="field wide"><label>Comentarios / pesos utilizados</label><textarea data-wodlog="${w.id}" data-field="notes" placeholder="Cargas, sensaciones y modificaciones">${safe(a.notes||'')}</textarea></div></div>
+ const dayFav=!!(w.favoriteId&&isFav(w.favoriteId))||(!!w.libraryId&&isFav(w.libraryId));
+ const librarySaved=!!(w.libraryId&&db.customWods.some(x=>x.id===w.libraryId));
+ const actions=`<div class="wod-actions">
+  <button class="btn small" data-act="togglewodedit" data-wid="${safe(w.id)}">✎ Editar este WOD</button>
+  ${isWod?`<button class="btn small" data-act="replacewodlib" data-wid="${safe(w.id)}">↻ Sustituir de biblioteca</button>`:''}
+  ${isWod?`<button class="btn small" data-act="savedaywodlibrary" data-wid="${safe(w.id)}">＋ Guardar en biblioteca</button>
+  <button class="btn small ${dayFav?'active':''}" data-act="savedaywodfav" data-wid="${safe(w.id)}">${dayFav?'★ Favorito guardado':'☆ Guardar en favoritos'}</button>`:''}
+  ${plan?`<button class="btn small danger" data-act="deletewod" data-wid="${safe(w.id)}">× Eliminar</button>`:''}</div>`;
+ return `<article class="item wod-day-card ${a.done?'doneitem':''}" data-wod-card="${safe(w.id)}">
+ <div class="itemhead"><div><div class="itemname">${safe(w.title)} ${a.done?'<span class="highlight">✓</span>':''}</div><div class="badges"><span class="chip yellow">${safe(w.format||'Otro')}</span>${w.source?`<span class="chip">${safe(w.source)}</span>`:''}${librarySaved?'<span class="chip green">Copia en biblioteca</span>':''}${dayFav?'<span class="chip green">★ En favoritos</span>':''}</div></div></div>
+ <div class="wod-view" data-wod-view="1"><div class="wodtext">${safe(w.text||'WOD pendiente de configurar')}</div></div>
+ <div class="wod-inline-editor" data-wod-editor="1" hidden>
+   <p class="wod-inline-intro">Cambia repeticiones, movimientos, máquina o estructura. Esta edición afecta <strong>solo a este entrenamiento</strong>; el WOD original de la biblioteca no cambia.</p>
+   <div class="field"><label>Nombre en este entrenamiento</label><input data-wod-field="title" value="${safe(w.title)}" maxlength="150" autocomplete="off"></div>
+   <div class="field"><label>Tipo de WOD</label><select data-wod-field="format">${TYPES.map(x=>`<option value="${safe(x)}" ${x===w.format?'selected':''}>${safe(x)}</option>`).join('')}</select></div>
+   <div class="field"><label>Texto completo (editable)</label><textarea data-wod-field="text" rows="8" spellcheck="false" placeholder="5 RFT\n20 Chest to Bar\n20 Wall Ball\n20 cal Row">${safe(w.text)}</textarea></div>
+   <div class="wod-inline-buttons"><button class="btn primary" data-act="savewodday" data-wid="${safe(w.id)}">Guardar cambios en este día</button><button class="btn" data-act="cancelwodedit" data-wid="${safe(w.id)}">Cancelar edición</button></div>
+ </div>
+ ${isWod?'<p class="wod-action-note">Puedes modificar este WOD sin alterar el original. Guardarlo en la biblioteca y marcarlo como favorito son acciones independientes.</p>':''}${actions}
+ ${plan?'':`<div class="logpanel"><label class="checkline"><input type="checkbox" data-donewod="${safe(w.id)}" ${a.done?'checked':''}> WOD realizado</label>
+ <div class="loggrid" style="margin-top:10px"><div class="field"><label>Tiempo</label><input data-wodlog="${safe(w.id)}" data-field="time" placeholder="12:35" value="${safe(a.time||'')}"></div><div class="field"><label>Rondas</label><input data-wodlog="${safe(w.id)}" data-field="rounds" placeholder="5+12" value="${safe(a.rounds||'')}"></div><div class="field wide"><label>Resultado / score</label><input data-wodlog="${safe(w.id)}" data-field="score" placeholder="Cal, metros, total..." value="${safe(a.score||'')}"></div><div class="field wide"><label>Comentarios / pesos utilizados</label><textarea data-wodlog="${safe(w.id)}" data-field="notes" placeholder="Cargas, sensaciones y modificaciones">${safe(a.notes||'')}</textarea></div></div>
  ${a.done&&!a.time&&!a.rounds&&!a.score&&!a.notes?'<div class="log-hint">WOD completado según lo planificado. Se ha guardado una copia del texto del WOD, pero no se inventa un tiempo ni un resultado.</div>':''}
  </div>`}
  </article>`;
@@ -779,7 +818,7 @@ function renderRms(){return `<section class="paper"><div class="lead"><div><span
 function renderCopies(){return `<section class="paper"><div><span class="eyebrow">Seguridad de los datos</span><h2>Copias de seguridad</h2><p class="subtle">La programaci\u00f3n, los registros y tu <strong>biblioteca privada de WOD</strong> est\u00e1n guardados en este navegador. GitHub Pages no los guarda ni sincroniza.</p></div>
  <div class="grid2" style="margin:20px 0"><div class="workout-card"><h3>\u2193 Descargar mis datos</h3><p class="smalltext">Incluye tus RM, TODAS las semanas, registros reales, WOD personalizados, favoritos y los WOD privados que hayas importado.</p><button class="btn primary full" data-act="backup">Descargar copia JSON completa</button></div><div class="workout-card"><h3>\u2191 Restaurar copia</h3><p class="smalltext">Selecciona el JSON desde tu tel\u00e9fono para recuperar todos tus datos y tu biblioteca en otro m\u00f3vil.</p><button class="btn full" data-act="restore">Seleccionar copia JSON</button></div><div class="workout-card"><h3>Biblioteca privada</h3><p class="smalltext">Importa el archivo original con 562 WOD. Se guarda localmente y tambi\u00e9n se incorpora a las copias completas.</p><button class="btn full" data-act="importlibrary">Importar biblioteca WOD</button></div></div>
  <div class="safety"><strong>Importante:</strong> restaurar una copia sustituye los datos actuales. Guarda el JSON en una carpeta privada de iCloud Drive o Archivos. Nunca lo subas al repositorio p\u00fablico de GitHub.</div>
- <p class="smalltext subtle">Hay ${Object.keys(db.weeks).length} semanas guardadas, ${db.rms.length} RM, ${db.customWods.length} WOD personalizados, ${(db.libraryWods||[]).length} WOD privados y ${db.favorites.length} favoritos.</p></section>`;}
+ <p class="smalltext subtle">Hay ${Object.keys(db.weeks).length} semanas guardadas, ${db.rms.length} RM, ${db.customWods.length} WOD personalizados en biblioteca, ${(db.libraryWods||[]).length} WOD privados y ${db.favorites.length} favoritos (copias independientes incluidas).</p></section>`;}
 let modalDraft=null;
 function showModal(title,content,onSubmit,saveLabel='Guardar cambios'){
  const dlg=$('#editModal');dlg.innerHTML=`<form id="modalForm"><div class="modalhead"><h2>${safe(title)}</h2><button type="button" class="btn small" data-mact="close" aria-label="Cerrar">✕</button></div><div class="modalbody">${content}<div class="formfoot"><button class="btn" data-mact="close" type="button">Cancelar</button><button type="submit" class="btn primary">${safe(saveLabel)}</button></div></div></form>`;
@@ -891,14 +930,79 @@ function useLibraryWodInContext(wid,ctx){
 function addLibraryWod(wid,targetWeek,targetDay,bid){
  useLibraryWodInContext(wid,{week:targetWeek,day:targetDay,blockId:bid,addNewBlock:!bid});
 }
-function toggleFavorite(wid){const at=db.favorites.indexOf(wid);if(at>=0)db.favorites.splice(at,1);else db.favorites.unshift(wid);save();render();toast(at>=0?'Favorito eliminado':'WOD guardado en favoritos');}
-function favoriteDayWod(wid){const o=getWod(wid);if(!o)return;const w=o.x;let lib=w.libraryId?findWodById(w.libraryId):null;
- if(!lib||lib.text!==w.text||lib.title!==w.title){lib=db.customWods.find(x=>x.text===w.text&&x.title===w.title);
-  if(!lib){lib={id:id('mywod'),title:w.title,text:w.text,category:'WOD',originalCategory:'WOD propio',format:w.format||'Otro',source:'Guardado desde mi entrenamiento',movements:[],day:'',page:0};db.customWods.unshift(lib);}
-  w.libraryId=lib.id;
- }
- if(!isFav(lib.id))db.favorites.unshift(lib.id);save();render();toast('WOD guardado en favoritos y en tu biblioteca personal');
+function toggleFavorite(wid){
+ const at=db.favorites.indexOf(wid);
+ if(at>=0){db.favorites.splice(at,1);db.favoriteWods=(db.favoriteWods||[]).filter(x=>x.id!==wid);}
+ else db.favorites.unshift(wid);
+ save();render();toast(at>=0?'Favorito eliminado':'WOD guardado en favoritos');
 }
+function wodEditorNode(wid){const card=document.querySelector(`[data-wod-card="${wid}"]`);return card?.querySelector('[data-wod-editor]')||null;}
+function toggleWodEditor(wid,open){
+ const editor=wodEditorNode(wid);if(!editor)return;
+ editor.hidden=!open;
+ const card=editor.closest('[data-wod-card]');const view=card?.querySelector('[data-wod-view]');if(view)view.hidden=open;
+ if(open){editor.querySelector('[data-wod-field="text"]')?.focus({preventScroll:true});editor.scrollIntoView({block:'nearest',behavior:'auto'});}
+}
+function getDayWodDraft(wid){
+ const found=getWod(wid);if(!found)return null;
+ const w=found.x,editor=wodEditorNode(wid);
+ if(!editor||editor.hidden)return {title:w.title,text:w.text,format:w.format||'Otro'};
+ const title=editor.querySelector('[data-wod-field="title"]')?.value.trim()||'';
+ const text=editor.querySelector('[data-wod-field="text"]')?.value.trim()||'';
+ const format=editor.querySelector('[data-wod-field="format"]')?.value||'Otro';
+ return {title,text,format};
+}
+function validDayWodDraft(draft){
+ if(!draft||!draft.title||!draft.text){toast('Introduce el nombre y el texto del WOD');return false;}
+ if(draft.title.length>150){toast('El nombre del WOD es demasiado largo');return false;}
+ return true;
+}
+function applyDayWodDraft(wid,draft){
+ const found=getWod(wid);if(!found||!validDayWodDraft(draft))return false;
+ const w=found.x;
+ const changed=w.title!==draft.title||w.text!==draft.text||(w.format||'Otro')!==draft.format;
+ if(!changed)return true;
+ if(w.actual?.done&&!confirm('Ya registraste este WOD como realizado. Cambiar la programación borrará el resultado anterior. ¿Continuar?'))return false;
+ if(!w.originalSource)w.originalSource=w.source||'';
+ Object.assign(w,{title:draft.title,text:draft.text,format:draft.format,source:'Adaptado por ti',libraryId:'',favoriteId:'',actual:{done:false,completedAt:'',time:'',rounds:'',score:'',notes:''}});
+ return true;
+}
+function saveDayWodInPlace(wid){
+ const draft=getDayWodDraft(wid);
+ if(!validDayWodDraft(draft))return;
+ if(!applyDayWodDraft(wid,draft))return;
+ save();render();toast('WOD editado y guardado en este día');
+}
+function openDayWodSaveModal(wid,destination){
+ const found=getWod(wid);if(!found)return;
+ const draft=getDayWodDraft(wid);
+ if(!validDayWodDraft(draft))return;
+ const toLibrary=destination==='library';
+ const label=toLibrary?'Guardar copia en biblioteca':'Guardar copia en favoritos';
+ const hint=toLibrary?'La copia se añadirá a tu Biblioteca WOD con el nombre que elijas. No se marcará automáticamente como favorita.':'Se añadirá a ★ Favoritos con el nombre que elijas, sin crear una entrada en la Biblioteca WOD.';
+ const linked=toLibrary?db.customWods.find(x=>x.id===found.x.libraryId):(db.favoriteWods||[]).find(x=>x.id===found.x.favoriteId);
+ const proposedName=linked&&linked.text===draft.text&&linked.format===draft.format?linked.title:draft.title;
+ const form=`<div class="formgrid">${fInput('Nombre para guardar esta versión','saveName',proposedName,{required:true,span:true})}</div>
+ <div class="wod-copy-preview"><span class="eyebrow">Texto que se guardará</span><div class="wodtext">${safe(draft.text)}</div><p class="smalltext subtle">${hint} Si has editado el WOD aquí, también se actualizará el texto de este día, pero el WOD original no se modificará.</p></div>`;
+ showModal(label,form,f=>{
+  const name=fd(f,'saveName').trim();if(!name||name.length>150){toast('Introduce un nombre válido para el WOD');return false;}
+  if(!applyDayWodDraft(wid,draft))return false;
+  const current=getWod(wid);if(!current)return false;
+  const w=current.x;
+  const type=toLibrary?'mywod':'favwod';
+  const collection=toLibrary?db.customWods:(db.favoriteWods||(db.favoriteWods=[]));
+  const already=collection.find(x=>x.title===name&&x.text===draft.text&&x.format===draft.format);
+  const copy=already||{id:id(type),title:name,text:draft.text,format:draft.format,
+   category:/hiit|engine/i.test(current.block.category)?'ENGINE':'WOD',originalCategory:toLibrary?'WOD propios':'Mis favoritos',
+   source:toLibrary?'Guardado desde mi entrenamiento':'Favorito de mi entrenamiento',movements:[],day:'',page:0};
+  if(!already)collection.unshift(copy);
+  if(toLibrary)w.libraryId=copy.id;
+  else{w.favoriteId=copy.id;if(!db.favorites.includes(copy.id))db.favorites.unshift(copy.id);}
+  return true;
+ },label);
+}
+function favoriteDayWod(wid){openDayWodSaveModal(wid,'favorite');}
+
 function move(arr,entry,delta){const i=arr.indexOf(entry),j=i+delta;if(i<0||j<0||j>=arr.length)return false;[arr[i],arr[j]]=[arr[j],arr[i]];return true;}
 function plannedExerciseSnapshot(e){
  return {name:e.name,scheme:e.scheme,durationMin:e.durationMin,restSec:e.restSec,rmId:e.rmId,
@@ -927,7 +1031,10 @@ async function restoreBackup(file){
  if(!confirm('\u00bfRestaurar esta copia? Los datos actuales del navegador ser\u00e1n sustituidos.'))return;
  const incoming=parsed.data;
  if(!Array.isArray(incoming.libraryWods))incoming.libraryWods=[];
- for(const snapshot of parsed.favoriteSnapshots||[]){if(snapshot?.id&&!incoming.customWods.some(x=>x.id===snapshot.id)&&!incoming.libraryWods.some(x=>x.id===snapshot.id))incoming.customWods.push(snapshot);}
+ if(!Array.isArray(incoming.favoriteWods))incoming.favoriteWods=[];
+ for(const snapshot of parsed.favoriteSnapshots||[]){
+  if(snapshot?.id&&!incoming.customWods.some(x=>x.id===snapshot.id)&&!incoming.libraryWods.some(x=>x.id===snapshot.id)&&!incoming.favoriteWods.some(x=>x.id===snapshot.id))incoming.favoriteWods.push(snapshot);
+ }
  db=incoming;exerciseDrafts={};persistExerciseDrafts();ui.week=db.weeks[thisWeek()]?thisWeek():Object.keys(db.weeks).sort().at(-1)||thisWeek();ui.day=0;ui.page='semana';ui.mode='registrar';ui.addContext=null;
  if(save()){render();toast('Copia restaurada: RM, historial, registros y biblioteca.');}
 }
@@ -957,7 +1064,11 @@ document.addEventListener('click',ev=>{
   else if(act==='deleteex'){const x=getEx(b.dataset.eid);if(x&&confirm(`¿Eliminar el ejercicio «${x.x.name}» y su registro?`)){x.block.items=x.block.items.filter(v=>v.id!==x.x.id);save();render();}}
   else if(act==='moveex'){const x=getEx(b.dataset.eid);if(x&&move(x.block.items,x.x,Number(b.dataset.delta))){save();render();}}
   else if(act==='addwod'){openWodModal(b.dataset.bid);}
-  else if(act==='editwod'){const x=getWod(b.dataset.wid);if(x)openWodModal(x.block.id,x.x.id);}
+  else if(act==='editwod'||act==='togglewodedit'){toggleWodEditor(b.dataset.wid,true);}
+  else if(act==='cancelwodedit'){toggleWodEditor(b.dataset.wid,false);}
+  else if(act==='savewodday'){saveDayWodInPlace(b.dataset.wid);}
+  else if(act==='savedaywodlibrary'){openDayWodSaveModal(b.dataset.wid,'library');}
+  else if(act==='savedaywodfav'){openDayWodSaveModal(b.dataset.wid,'favorite');}
   else if(act==='deletewod'){const x=getWod(b.dataset.wid);if(x&&confirm(`¿Eliminar «${x.x.title}» de este día?`)){x.block.wods=x.block.wods.filter(v=>v.id!==x.x.id);save();render();}}
   else if(act==='saveexercise'){const x=getEx(b.dataset.eid);if(x)saveExerciseFromSeries(x.x);}
   else if(act==='editday'){openDayModal();}
@@ -1018,7 +1129,7 @@ window.addEventListener('load', function () {
   /* Last chance to load the separate CSS if the browser ignored the inline style. */
   var retry = document.createElement('link');
   retry.rel = 'stylesheet';
-  retry.href = './styles.css?v=3.4-retry';
+  retry.href = './styles.css?v=3.5-retry';
   retry.onload = function () {
     if (getComputedStyle(b).display !== 'grid') showStyleHelp();
   };
