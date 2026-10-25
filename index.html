@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f1cb39"><meta name="description" content="Entrenardos: diario semanal de entrenamiento, RMs, WODs e historial con copias JSON."><title>Entrenardos · Diario de entrenamiento V3.2</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f1cb39"><meta name="description" content="Entrenardos: diario semanal de entrenamiento, RMs, WODs e historial con copias JSON."><title>Entrenardos · Diario de entrenamiento V3.4</title>
 <style id="entrenardos-inline-style">
 :root{color-scheme:light;--ink:#181a1b;--muted:#62676b;--bg:#f5f5f1;--white:#fff;--line:#e1e1db;--yellow:#f1cb39;--pale:#fff7d6;--green:#23744d;--greenbg:#e9f7ef;--red:#b13f36;--shadow:0 2px 15px rgba(22,22,19,.035)}
 
@@ -362,17 +362,73 @@ input, select, textarea { max-width: 100%; }
   *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
+
+/* Entrenardos V3.3 - prefilled, always-visible series log */
+.exercise-register { margin-top: 12px; }
+.exercise-log-intro { display:flex; gap:7px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-bottom:7px; }
+.exercise-log-status { display:inline-flex; align-items:center; font-size:11px; font-weight:800; padding:5px 8px; border-radius:8px; border:1px solid transparent; }
+.exercise-log-status.planned { background:#f0f0eb; color:#575957; border-color:#e4e4dd; }
+.exercise-log-status.saved { background:#e8f5eb; color:#155e35; border-color:#cae7d1; }
+.exercise-log-status.editing { background:#fff4cf; color:#745200; border-color:#ebd27f; }
+.exercise-log-legend { color:#62676b; font-size:12px; line-height:1.4; margin-bottom:10px; }
+.series-live { background:#fcfcfa; border:1px solid #e1e1d8; border-radius:10px; padding:5px 8px 7px; }
+.series-live .setlogrow { grid-template-columns:34px minmax(0,1.35fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); gap:7px; }
+.series-live .setlogrow input { font-size:15px; min-height:42px; padding:8px 4px; background:white; text-align:center; border:1px solid #deded8; font-variant-numeric:tabular-nums; }
+.series-live .setlogrow input.draft-changed { border-color:#c99e16; background:#fffbea; }
+.series-live .series-live-header { border-bottom:1px solid #dadbd3; padding:5px 0 7px; font-size:11px; font-weight:800; color:#64665f; }
+.series-live .series-live-header span { font-size:11px; text-align:center; }
+.series-live .series-live-row { padding:6px 0; }
+.series-live .series-number { font-size:12px; font-weight:850; text-align:center; }
+.exercise-notes { margin-top:13px; }
+.exercise-notes textarea { min-height:65px; }
+.exercise-savebar { padding:10px 0 2px; display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+.exercise-save-info { color:#62676b; font-size:11px; line-height:1.45; flex:1 1 155px; }
+.exercise-savebar .exercise-save { width:auto; min-width:160px; min-height:44px; flex:0 0 auto; }
+@media (max-width:760px) {
+ .series-live { padding:5px 5px 6px; }
+ .series-live .setlogrow { grid-template-columns:25px minmax(0,1.22fr) minmax(0,1fr) minmax(0,.95fr) minmax(0,1fr); gap:4px; }
+ .series-live .setlogrow input { font-size:16px; min-height:44px; padding:7px 2px; }
+ .series-live .series-live-header span { font-size:10px; }
+ .series-live .series-number { font-size:11px; }
+ .exercise-savebar { display:block; }
+ .exercise-savebar .exercise-save { width:100%; margin-top:9px; min-height:46px; font-size:14px; }
+}
+@media (max-width:359px) {
+ .series-live { padding:4px 3px; }
+ .series-live .setlogrow { grid-template-columns:22px minmax(0,1.15fr) repeat(3,minmax(0,1fr)); gap:3px; }
+ .series-live .setlogrow input { font-size:16px; padding:6px 1px; }
+ .series-live .series-live-header span { font-size:9px; }
+ .exercise-log-legend { font-size:11px; }
+}
+
+/* V3.4: actions for replacing existing WODs without appending extras */
+.wod-actions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 4px}
+.wod-action-note{font-size:11px;color:#70726e;line-height:1.4;margin:6px 0 3px}
+.daily-bottom-actions{margin:16px 0 4px;border-top:2px solid #e9e9e2;padding:16px 0 0}
+.daily-bottom-title{font-size:12px;letter-spacing:.3px;font-weight:800;margin-bottom:9px}
+.daily-extra-wod{margin-top:11px;padding:13px;background:#fff8e0;border:1px solid #e6d699;border-radius:11px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
+.daily-extra-wod>span{flex:1 1 210px;line-height:1.5}
+.daily-extra-wod .btn{flex:0 1 auto}
+@media (max-width:760px){
+.wod-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.wod-actions .btn{min-width:0;min-height:44px;padding:8px 5px;font-size:12px}
+.daily-extra-wod{display:block;padding:12px}
+.daily-extra-wod>span{display:block;margin-bottom:9px}
+.daily-extra-wod .btn{width:100%;min-height:44px}
+}
+@media (max-width:359px){.wod-actions .btn{font-size:11px;line-height:1.3}}
+
 </style>
-<link rel="stylesheet" href="./styles.css?v=3.2" id="entrenardos-external-style"></head><body>
+<link rel="stylesheet" href="./styles.css?v=3.4" id="entrenardos-external-style"></head><body>
 <div class="app">
 <header class="header"><div class="brand"><div class="brandmark" aria-hidden="true">E</div><div><h1>Entrenardos</h1><small>Tu entrenamiento, semana a semana</small></div></div><div class="header-actions"><button class="btn primary" data-act="backup">↓ Descargar mis datos</button><button class="btn" data-act="restore">↑ Restaurar copia</button></div></header>
 <nav class="navigation" aria-label="Secciones" id="nav">
 <button class="nav active" data-nav="semana">Semana</button><button class="nav" data-nav="historial">Historial</button><button class="nav" data-nav="biblioteca">Biblioteca WOD</button><button class="nav" data-nav="favoritos">★ Favoritos</button><button class="nav" data-nav="rms">Mis RM</button><button class="nav" data-nav="copias">Copias</button>
 </nav>
 <div class="backupbar"><div><strong id="saveLabel">Guardado en este navegador</strong><span class="subtle">Las copias JSON te permiten recuperar los datos en otro móvil.</span></div><span class="week-status" id="stateStatus">● Guardado local</span></div>
-<main id="appMain"></main><footer class="footer">Entrenardos V3.2 · Los registros son locales a este navegador. Haz una copia de seguridad semanal.</footer></div>
+<main id="appMain"></main><footer class="footer">Entrenardos V3.4 · Los registros son locales a este navegador. Haz una copia de seguridad semanal.</footer></div>
 <dialog class="modal" id="editModal"></dialog><input type="file" id="restoreFile" accept=".json,application/json" class="only-screen-reader"><input type="file" id="libraryFile" accept=".json,application/json" class="only-screen-reader"><div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script>(() => {
+<script>(()=>{
 'use strict';
 const $=(s,el=document)=>el.querySelector(s);
 const $$=(s,el=document)=>[...el.querySelectorAll(s)];
@@ -393,6 +449,12 @@ const storageSupported=(()=>{try{const t='__entrenardos_storage_test__';localSto
 let db;
 let ui={page:'semana',mode:'registrar',week:'',day:0,libraryQuery:'',libraryCategory:'',libraryType:'',libraryLimit:24,addContext:null};
 let toastTimer;
+// Unsaved series edits live separately from the real training log. Saving a
+// single exercise makes that exercise completed; changing a field never does.
+const DRAFT_KEY='entrenardos_v3_3_borradores_ejercicio';
+let exerciseDrafts={};
+try{if(storageSupported)exerciseDrafts=JSON.parse(localStorage.getItem(DRAFT_KEY)||'{}')||{};}catch{exerciseDrafts={};}
+
 function today(){const d=new Date();d.setHours(12,0,0,0);return d;}
 function monday(dt){const d=new Date(dt);d.setHours(12,0,0,0);d.setDate(d.getDate()-(d.getDay()+6)%7);return d;}
 function addDays(dt,n){const d=new Date(dt);d.setDate(d.getDate()+n);return d;}
@@ -535,17 +597,19 @@ function renderWeek(){
  <div class="weekbar-actions"><button class="btn small icon" data-act="shiftweek" data-delta="-7" aria-label="Semana anterior">‹</button>${backToCurrent}<button class="btn small icon" data-act="shiftweek" data-delta="7" aria-label="Semana siguiente">›</button></div></div>
  <div class="daygrid">${w.days.map((day,i)=>{const when=dayDate(ui.week,i),td=iso(when)===iso(today()),done=day.blocks.some(b=>b.items.some(x=>x.actual?.done)||b.wods.some(x=>x.actual?.done));return `<button class="daybtn ${i===ui.day?'active':''} ${td?'today':''} ${done?'hasdone':''}" data-act="day" data-day="${i}"><span>${['L','M','X','J','V','S','D'][i]}</span><small>${when.getDate()}</small><b class="dot"></b></button>`}).join('')}</div>
  <div class="flex between"><div><h2 style="margin:0">${safe(DAYNAMES[ui.day])} ${dt.getDate()}</h2><p class="subtle smalltext" style="margin:2px 0">${safe(d.label)}</p></div><div class="tabswitch"><button class="btn small ${ui.mode==='registrar'?'active':''}" data-act="mode" data-mode="registrar">Registrar</button><button class="btn small ${ui.mode==='planificar'?'active':''}" data-act="mode" data-mode="planificar">Planificar</button></div></div>
- ${ui.mode==='planificar'?'<p class="helper" style="margin-top:14px">Puedes cambiar ahora todos los ejercicios de cualquier día y de cualquier semana. Los cambios quedan guardados aunque el entrenamiento todavía no se haya realizado.</p>':'<p class="helper" style="margin-top:14px">Pulsa <strong>Realizado</strong> para guardar lo programado. Después puedes corregir cualquier serie.</p>'}
+ ${ui.mode==='planificar'?'<p class="helper" style="margin-top:14px">Puedes cambiar ahora todos los ejercicios de cualquier día y de cualquier semana. Los cambios quedan guardados aunque el entrenamiento todavía no se haya realizado.</p>':'<p class="helper" style="margin-top:14px">Todas las series aparecen con lo programado. Si has cumplido el plan, pulsa <strong>Guardar ejercicio</strong>; si no, cambia únicamente las series necesarias y guarda.</p>'}
  <div style="margin-top:17px">${d.blocks.length?d.blocks.map((b,i)=>renderBlock(b,i)).join(''):'<div class="empty">Este día aún no tiene bloques. En Planificar puedes añadirlos.</div>'}</div>
  <div class="daynote"><label class="label" for="daynotes">Notas generales del día</label><textarea id="daynotes" data-daynote="1" placeholder="Sensaciones, molestias, recuperación, distancia del trail...">${safe(d.notes)}</textarea></div>
- ${ui.mode==='planificar'?`<div class="flex"><button class="btn primary" data-act="addblock">+ Añadir bloque</button><button class="btn" data-act="editday">Editar título del día</button><button class="btn" data-act="carryloads">Traer pesos reales anteriores</button><button class="btn" data-act="copyprior">Copiar programación anterior</button></div>`:`<div class="flex"><button class="btn" data-act="mode" data-mode="planificar">✎ Editar programación</button><button class="btn" data-act="goto-library">+ Elegir WOD de biblioteca</button></div>`}
+ <div class="daily-bottom-actions"><div class="daily-bottom-title">Opciones del día</div>
+ ${ui.mode==='planificar'?`<div class="flex"><button class="btn primary" data-act="addblock">+ Añadir bloque</button><button class="btn" data-act="editday">Editar título del día</button><button class="btn" data-act="carryloads">Traer pesos reales anteriores</button><button class="btn" data-act="copyprior">Copiar programación anterior</button></div>`:`<div class="flex"><button class="btn" data-act="mode" data-mode="planificar">✎ Editar programación</button></div>`}
+ <div class="daily-extra-wod"><span class="smalltext subtle">¿Quieres hacer un segundo WOD? Se añadirá como bloque independiente, sin sustituir los anteriores.</span><button class="btn primary" data-act="goto-library-day">+ Añadir OTRO WOD de la biblioteca</button></div></div>
  </section>`;
 }
 function renderBlock(b,bIndex){
  const plan=ui.mode==='planificar';const actions=plan?`<div class="actions"><button class="btn small" data-act="editblock" data-bid="${b.id}">✎ Bloque</button><button class="btn small" data-act="moveblock" data-bid="${b.id}" data-delta="-1" aria-label="Subir bloque">↑</button><button class="btn small" data-act="moveblock" data-bid="${b.id}" data-delta="1" aria-label="Bajar bloque">↓</button><button class="btn small danger" data-act="deleteblock" data-bid="${b.id}">×</button></div>`:'';
  return `<section class="block"><div class="blockhead"><div><strong><span class="chip yellow">${String.fromCharCode(65+bIndex)}</span> ${safe(b.title)}</strong> <small> · ${safe(b.category)}</small></div>${actions}</div>
  <div class="blockbody">${b.items.map(e=>renderExercise(e,b,plan)).join('')}${b.wods.map(w=>renderDayWod(w,b,plan)).join('')}${(!b.items.length&&!b.wods.length)?'<p class="smalltext subtle" style="padding:15px 0">Bloque sin ejercicios.</p>':''}</div>
- ${plan?`<div class="controls-bottom"><button class="btn small primary" data-act="addex" data-bid="${b.id}">+ Ejercicio</button><button class="btn small" data-act="addwod" data-bid="${b.id}">+ Escribir WOD</button><button class="btn small" data-act="goto-library" data-bid="${b.id}">Buscar WOD</button></div>`:''}
+ ${plan?`<div class="controls-bottom"><button class="btn small primary" data-act="addex" data-bid="${b.id}">+ Ejercicio</button>${!b.wods.length?`<button class="btn small" data-act="addwod" data-bid="${b.id}">+ Escribir WOD en este bloque</button><button class="btn small" data-act="goto-library" data-bid="${b.id}">+ WOD de biblioteca aquí</button>`:''}</div>`:''}
  </section>`;
 }
 function renderExercise(e,b,plan){
@@ -557,29 +621,120 @@ function renderExercise(e,b,plan){
  const rows=e.rows.map((r,i)=>`<span>S${i+1}: ${safe(r.reps||'—')} rep ${r.pct!==''?'· '+safe(r.pct)+'%':''} ${calcKg(e,r)!==null?'· '+weightText(calcKg(e,r)):''}${r.rir!==''?' · RIR '+safe(r.rir):''}</span>`).join('');
  return `<article class="item ${active?'doneitem':''}"><div class="itemhead"><div><div class="itemname">${safe(e.name)} ${active?'<span class="highlight">✓</span>':''}</div><div class="badges"><span class="chip yellow">${safe(e.scheme)}</span><span class="chip">${sets} series · ${safe(reps)} rep</span><span class="chip">${rm}</span>${e.durationMin?`<span class="chip">${safe(e.durationMin)} min</span>`:''}${e.restSec?`<span class="chip">${safe(e.restSec)} s descanso</span>`:''}${currentRir(e)!=='—'?`<span class="chip">RIR ${safe(currentRir(e))}</span>`:''}</div></div>${actions}</div>
  <div class="presc"><strong>Cargas objetivo:</strong> ${safe(target)}${e.notes?`<br><span class="subtle">${safe(e.notes)}</span>`:''}</div>
- ${plan?`<details><summary class="smalltext" style="cursor:pointer;font-weight:750">Ver objetivos por serie (${sets})</summary><div class="series-preview">${rows}</div></details>`:renderExLog(e)}
+ ${plan?`<div class="series-preview" aria-label="Objetivos de las ${sets} series">${rows}</div>`:renderExLog(e)}
  </article>`;
 }
-function renderExLog(e){
- const a=e.actual||{done:false,summary:{},rows:[]};const s=a.summary||{};const hadData=!!(s.kg||s.reps||s.rir||s.rest||s.notes||(a.rows||[]).some(r=>r.kg||r.reps||r.rir||r.rest));
- return `<div class="logpanel"><div class="flex between"><label class="checkline"><input type="checkbox" data-doneex="${e.id}" ${a.done?'checked':''}> Realizado</label><button class="btn small" data-act="copyplan" data-eid="${e.id}">Copiar plan al registro</button></div>
- ${a.done?`<div class="log-hint">\u2713 Programaci\u00f3n registrada en ${(a.rows||[]).filter(r=>r.reps||r.kg).length}/${e.rows.length} series. ${!s.kg?'Las cargas var\u00edan por serie: abre el registro detallado para verlas.':''} Puedes corregir cualquier valor real.</div>`:''}
- <div class="loggrid" style="margin-top:10px">
- ${logField('Peso real (kg)','kg',e.id,s.kg,'kg')}${logField('Reps reales','reps',e.id,s.reps,'reps')}${logField('RIR real','rir',e.id,s.rir,'RIR')}${logField('Descanso (s)','rest',e.id,s.rest,'segundos')}
- <div class="field wide"><label>Comentarios</label><textarea data-exlog="${e.id}" data-field="notes" placeholder="¿Cómo fue? Técnica, fatiga...">${safe(s.notes)}</textarea></div></div>
- <details class="setdetails"><summary>Registro por series (relleno al completar) · ${e.rows.length} series</summary><div class="flex between" style="margin:10px 0"><span class="smalltext subtle">Al marcar Realizado se rellenan las series desde tu plan; puedes modificar los datos.</span></div>
- <div class="setlogrow tiny" style="font-weight:750"><span>Serie</span><span>kg real</span><span>Reps</span><span>RIR</span><span>Desc. s</span></div>
- ${e.rows.map((r,i)=>{const ar=a.rows?.[i]||{};return `<div class="setlogrow"><span class="tiny" title="Objetivo: ${safe(r.reps)} reps, ${weightText(calcKg(e,r))}">${i+1}</span>${['kg','reps','rir','rest'].map((f)=>`<input aria-label="Serie ${i+1}, ${f}" inputmode="decimal" data-exset="${e.id}" data-si="${i}" data-field="${f}" placeholder="${safe(f==='kg'?pnum(calcKg(e,r)):f==='reps'?r.reps:'—')}" value="${safe(ar[f]||'')}">`).join('')}</div>`}).join('')}
- </details></div>`;
+function exerciseDraftKey(e){return `${ui.week}|${ui.day}|${e.id}`;}
+function getExerciseDraft(e){return exerciseDrafts[exerciseDraftKey(e)]||{rows:{}};}
+function hasDraftChanges(e){const d=getExerciseDraft(e);return !!(d.rows&&Object.values(d.rows).some(v=>v&&Object.keys(v).length))||Object.prototype.hasOwnProperty.call(d,'notes');}
+function persistExerciseDrafts(){
+ if(!storageSupported)return;
+ try{localStorage.setItem(DRAFT_KEY,JSON.stringify(exerciseDrafts));}
+ catch(e){console.warn('No se pudo guardar el borrador de ejercicio',e);}
 }
-function logField(title,field,eid,value,placeholder){return `<div class="field"><label>${title}</label><input data-exlog="${eid}" data-field="${field}" inputmode="decimal" value="${safe(value??'')}" placeholder="${safe(placeholder)}"></div>`;}
+function plannedSetValue(e,r,field){
+ if(field==='kg'){const kg=calcKg(e,r);return kg===null?'':String(kg);}
+ if(field==='reps')return String(r.reps??'');
+ if(field==='rir')return String(r.rir??'');
+ if(field==='rest')return e.restSec===''||e.restSec===null||e.restSec===undefined?'':String(e.restSec);
+ return '';
+}
+function originalSetValue(e,index,field){
+ const recorded=e.actual?.rows?.[index];
+ // Data from V3.2 are preserved. An unsaved legacy series is shown if it had
+ // been entered by hand, but it is NOT regarded as completed in V3.3.
+ if(recorded&&e.actual?.done&&Object.prototype.hasOwnProperty.call(recorded,field))return String(recorded[field]??'');
+ return plannedSetValue(e,e.rows[index],field);
+}
+function shownSetValue(e,index,field){
+ const overrides=getExerciseDraft(e).rows?.[index];
+ if(overrides&&Object.prototype.hasOwnProperty.call(overrides,field))return String(overrides[field]??'');
+ return originalSetValue(e,index,field);
+}
+function shownExerciseNotes(e){
+ const d=getExerciseDraft(e);
+ return Object.prototype.hasOwnProperty.call(d,'notes')?String(d.notes):String(e.actual?.summary?.notes??'');
+}
+function updateExerciseDraft(e,index,field,value){
+ const key=exerciseDraftKey(e),draft=exerciseDrafts[key]||{rows:{}};
+ if(field==='notes'){
+  const original=String(e.actual?.summary?.notes??'');
+  if(value===original)delete draft.notes;else draft.notes=value;
+ }else{
+  draft.rows ||= {};
+  draft.rows[index] ||= {};
+  if(String(value)===originalSetValue(e,index,field))delete draft.rows[index][field];
+  else draft.rows[index][field]=String(value);
+  if(!Object.keys(draft.rows[index]).length)delete draft.rows[index];
+ }
+ if(!Object.keys(draft.rows||{}).length&&!Object.prototype.hasOwnProperty.call(draft,'notes'))delete exerciseDrafts[key];
+ else exerciseDrafts[key]=draft;
+ persistExerciseDrafts();
+ return hasDraftChanges(e);
+}
+function updateDraftUi(e,dirty,origin){
+ const card=origin.closest('.item');if(!card)return;
+ const status=card.querySelector('[data-exlogstatus]');
+ if(status){status.className='exercise-log-status '+(dirty?'editing':e.actual?.done?'saved':'planned');status.textContent=dirty?'Cambios sin guardar':e.actual?.done?'✓ Registrado':'Preparado para registrar';}
+ const info=card.querySelector('[data-saveinfo]');
+ if(info)info.textContent=dirty?'Tienes cambios pendientes de guardar.':e.actual?.done?'Último registro guardado. Puedes corregir cualquier serie y volver a guardar.':'Si todo coincide con el plan, no cambies nada.';
+ if(origin.hasAttribute('data-exset')){
+  const field=origin.dataset.field,index=Number(origin.dataset.si);
+  origin.classList.toggle('draft-changed',origin.value!==originalSetValue(e,index,field));
+ }
+}
+function saveExerciseFromSeries(e){
+ if(!e||!Array.isArray(e.rows)||!e.rows.length){toast('El ejercicio necesita al menos una serie');return;}
+ const actual=e.actual||{};
+ const rows=e.rows.map((r,i)=>Object.fromEntries(['kg','reps','rir','rest'].map(f=>[f,shownSetValue(e,i,f)])));
+ const notes=shownExerciseNotes(e);
+ const same=field=>{const v=rows.map(r=>String(r[field]??''));return v.length&&v[0]!==''&&v.every(x=>x===v[0])?v[0]:'';};
+ const prior=clone(actual);
+ actual.rows=rows;
+ actual.summary={kg:same('kg'),reps:same('reps'),rir:same('rir'),rest:same('rest'),notes};
+ actual.done=true;
+ actual.completedAt=new Date().toISOString();
+ actual.plannedSnapshot=plannedExerciseSnapshot(e);
+ e.actual=actual;
+ if(!save()){
+  e.actual=prior;
+  toast('No se pudo guardar. Conserva una copia de seguridad.');
+  return;
+ }
+ delete exerciseDrafts[exerciseDraftKey(e)];persistExerciseDrafts();
+ render();toast('✓ Ejercicio guardado con todas sus series.');
+}
+function renderExLog(e){
+ const done=!!e.actual?.done,dirty=hasDraftChanges(e),sets=e.rows.length;
+ const status=dirty?'Cambios sin guardar':done?'✓ Registrado':'Preparado para registrar';
+ const cls=dirty?'editing':done?'saved':'planned';
+ return `<div class="logpanel exercise-register" data-exercise-log="${safe(e.id)}">
+ <div class="exercise-log-intro"><span class="exercise-log-status ${cls}" data-exlogstatus="${safe(e.id)}">${status}</span><span class="smalltext subtle">${sets} series · los valores iniciales son los programados</span></div>
+ <div class="exercise-log-legend">Edita solo lo que hayas hecho diferente. Ningún resultado se registra hasta que pulses «Guardar ejercicio».</div>
+ <div class="series-live" role="group" aria-label="Registro de las ${sets} series de ${safe(e.name)}">
+ <div class="setlogrow series-live-header" aria-hidden="true"><span>Serie</span><span>Reps</span><span>kg</span><span>RIR</span><span>Desc. s</span></div>
+ ${e.rows.map((r,i)=>`<div class="setlogrow series-live-row" data-series-number="${i+1}"><span class="series-number" title="Objetivo: ${safe(r.reps)} reps, ${weightText(calcKg(e,r))}">${i+1}</span>${['reps','kg','rir','rest'].map((f)=>{
+  const value=shownSetValue(e,i,f);
+  const original=originalSetValue(e,i,f);
+  const change=getExerciseDraft(e).rows?.[i]&&Object.prototype.hasOwnProperty.call(getExerciseDraft(e).rows[i],f);
+  return `<input aria-label="${safe(e.name)}, serie ${i+1}, ${f==='kg'?'peso en kg':f==='reps'?'repeticiones':f==='rir'?'RIR':'descanso en segundos'}" data-exset="${safe(e.id)}" data-si="${i}" data-field="${f}" inputmode="${f==='kg'?'decimal':f==='rest'?'numeric':'text'}" value="${safe(value)}" placeholder="—" ${change?'class="draft-changed"':''} title="Valor programado: ${safe(plannedSetValue(e,r,f)||'sin indicar')}">`;
+ }).join('')}</div>`).join('')}
+ </div>
+ <div class="field exercise-notes"><label for="notes-${safe(e.id)}">Comentarios del ejercicio (opcional)</label><textarea id="notes-${safe(e.id)}" data-exnotes="${safe(e.id)}" placeholder="Técnica, fatiga o cualquier cambio respecto al plan...">${safe(shownExerciseNotes(e))}</textarea></div>
+ <div class="exercise-savebar"><div class="exercise-save-info" data-saveinfo="${safe(e.id)}">${dirty?'Tienes cambios pendientes de guardar.':done?'Último registro guardado. Puedes corregir cualquier serie y volver a guardar.':'Si todo coincide con el plan, no cambies nada.'}</div>
+ <button class="btn primary full exercise-save" data-act="saveexercise" data-eid="${safe(e.id)}">${done?'Guardar cambios':'Guardar ejercicio'}</button></div>
+ </div>`;
+}
+function isEditableWodBlock(b){return /wod|hiit|engine|conditioning|workout|grind/i.test([b.category,b.title].join(' '));}
 function renderDayWod(w,b,plan){
- const a=w.actual||{},actions=`<div class="actions"><button class="btn small" data-act="editwod" data-wid="${w.id}">✎ Editar</button><button class="btn small" data-act="favoriteDayWod" data-wid="${w.id}">${w.libraryId&&isFav(w.libraryId)?'★ Favorito':'☆ Guardar favorito'}</button>${plan?`<button class="btn small danger" data-act="deletewod" data-wid="${w.id}">×</button>`:''}</div>`;
- return `<article class="item ${a.done?'doneitem':''}"><div class="itemhead"><div><div class="itemname">${safe(w.title)} ${a.done?'<span class="highlight">✓</span>':''}</div><div class="badges"><span class="chip yellow">${safe(w.format||'Otro')}</span>${w.source?`<span class="chip">${safe(w.source)}</span>`:''}</div></div>${actions}</div>
+ const a=w.actual||{},isWod=isEditableWodBlock(b);
+ const actions=`<div class="wod-actions">${isWod?`<button class="btn small" data-act="editwod" data-wid="${w.id}">✎ Escribir / sustituir</button><button class="btn small primary" data-act="replacewodlib" data-wid="${w.id}">↻ Sustituir desde biblioteca</button>`:`<button class="btn small" data-act="editwod" data-wid="${w.id}">✎ Editar</button>`}<button class="btn small" data-act="favoriteDayWod" data-wid="${w.id}">${w.libraryId&&isFav(w.libraryId)?'★ Favorito':'☆ Guardar favorito'}</button>${plan?`<button class="btn small danger" data-act="deletewod" data-wid="${w.id}">× Eliminar</button>`:''}</div>`;
+ return `<article class="item ${a.done?'doneitem':''}"><div class="itemhead"><div><div class="itemname">${safe(w.title)} ${a.done?'<span class="highlight">✓</span>':''}</div><div class="badges"><span class="chip yellow">${safe(w.format||'Otro')}</span>${w.source?`<span class="chip">${safe(w.source)}</span>`:''}</div></div></div>
  <div class="wodtext">${safe(w.text||'WOD pendiente de configurar')}</div>
- ${plan?'':`<div class="logpanel"><div class="flex between"><label class="checkline"><input type="checkbox" data-donewod="${w.id}" ${a.done?'checked':''}> WOD realizado</label><button class="btn small" data-act="goto-library" data-bid="${b.id}">+ WOD desde biblioteca</button></div>
+ ${isWod?'<div class="wod-action-note">Sustituir cambia este mismo WOD. Para añadir otro, utiliza el botón al final del día.</div>':''}${actions}
+ ${plan?'':`<div class="logpanel"><label class="checkline"><input type="checkbox" data-donewod="${w.id}" ${a.done?'checked':''}> WOD realizado</label>
  <div class="loggrid" style="margin-top:10px"><div class="field"><label>Tiempo</label><input data-wodlog="${w.id}" data-field="time" placeholder="12:35" value="${safe(a.time||'')}"></div><div class="field"><label>Rondas</label><input data-wodlog="${w.id}" data-field="rounds" placeholder="5+12" value="${safe(a.rounds||'')}"></div><div class="field wide"><label>Resultado / score</label><input data-wodlog="${w.id}" data-field="score" placeholder="Cal, metros, total..." value="${safe(a.score||'')}"></div><div class="field wide"><label>Comentarios / pesos utilizados</label><textarea data-wodlog="${w.id}" data-field="notes" placeholder="Cargas, sensaciones y modificaciones">${safe(a.notes||'')}</textarea></div></div>
- ${a.done&&!a.time&&!a.rounds&&!a.score&&!a.notes?'<div class="log-hint">WOD completado seg\u00fan lo planificado. Se ha guardado una copia del texto del WOD, pero no se inventa un tiempo ni un resultado.</div>':''}
+ ${a.done&&!a.time&&!a.rounds&&!a.score&&!a.notes?'<div class="log-hint">WOD completado según lo planificado. Se ha guardado una copia del texto del WOD, pero no se inventa un tiempo ni un resultado.</div>':''}
  </div>`}
  </article>`;
 }
@@ -592,7 +747,7 @@ function renderLibrary(){
  const cats=[...new Set(libraryAll().map(x=>x.category||'Otro'))].sort();
  return `<section class="paper"><div class="lead"><div><span class="eyebrow">${(db.libraryWods||[]).length} WOD privados importados</span><h2>Biblioteca de WOD</h2><p>Busca por ejercicio, categor\u00eda, formato o fuente. Los PDF y su contenido <strong>no se publican en GitHub</strong>.</p></div><div class="actions"><button class="btn primary" data-act="importlibrary">\u2191 Importar biblioteca privada</button><button class="btn" data-act="newcustomwod">+ Crear WOD</button></div></div>
  ${(db.libraryWods||[]).length?'':`<div class="banner"><strong>Primera vez:</strong> selecciona el archivo <code>Entrenardos_Biblioteca_WOD_PRIVADA.json</code> que has guardado en Archivos / iCloud. Se importar\u00e1n los WOD a este navegador del m\u00f3vil, sin subirlos a GitHub.</div>`}
- ${ui.addContext?`<div class="banner"><strong>Destino:</strong> ${safe(DAYNAMES[ui.addContext.day])} \u00b7 ${safe(prettyWeek(ui.addContext.week))}. Al pulsar \u00abA\u00f1adir a mi d\u00eda\u00bb se incorporar\u00e1 aqu\u00ed. <button class="btn small" data-act="clearcontext">Quitar destino</button></div>`:''}
+ ${ui.addContext?`<div class="banner"><strong>${ui.addContext.replaceWodId?'Sustituir el WOD actual':ui.addContext.addNewBlock?'Añadir un WOD adicional':'Añadir un WOD al bloque'}:</strong> ${ui.addContext.replaceWodTitle?'<br><strong>'+safe(ui.addContext.replaceWodTitle)+'</strong> → ':''}${safe(DAYNAMES[ui.addContext.day])} · ${safe(prettyWeek(ui.addContext.week))}.${ui.addContext.replaceWodId?' El WOD elegido ocupará exactamente el lugar del actual, sin añadir otro debajo.':ui.addContext.addNewBlock?' Se creará un bloque nuevo al final del día.':' El WOD elegido se incorporará a este bloque.'} <button class="btn small" data-act="clearcontext">Cancelar selección</button></div>`:''}
  <div class="library-toolbar"><div class="field"><label>Buscar cualquier ejercicio o palabra</label><input id="libSearch" value="${safe(ui.libraryQuery)}" placeholder="power clean, T2B, trineo, remo..."></div>
  <div class="field"><label>Categor\u00eda</label><select id="libCategory"><option value="">Todas las categor\u00edas</option>${cats.map(x=>`<option ${x===ui.libraryCategory?'selected':''} value="${safe(x)}">${safe(x)}</option>`).join('')}</select></div>
  <div class="field"><label>Tipo de WOD</label><select id="libType"><option value="">Todos los formatos</option>${TYPES.map(x=>`<option ${x===ui.libraryType?'selected':''} value="${safe(x)}">${safe(x)}</option>`).join('')}</select></div></div>
@@ -613,7 +768,7 @@ function wodCard(x){
  <p class="meta">${safe(x.source||'Creado por ti')}${x.day?' · '+safe(x.day):''}${x.page?' · pág. '+x.page:''}${x.level?' · Nivel '+x.level:''}</p>
  ${x.movements?.length?`<div class="badges">${x.movements.slice(0,5).map(m=>`<span class="chip">${safe(m)}</span>`).join('')}</div>`:''}
  <details><summary>Ver WOD completo</summary><div class="wodtext">${safe(x.text)}</div></details>
- <div class="actions"><button class="btn small primary" data-act="usewod" data-wid="${x.id}">+ Añadir a mi día</button><button class="btn small" data-act="togglefav" data-wid="${x.id}">${isFav(x.id)?'★ Guardado':'☆ Favorito'}</button>${db.customWods.some(a=>a.id===x.id)?`<button class="btn small" data-act="editcustomwod" data-wid="${x.id}">Editar</button><button class="btn small danger" data-act="deletecustomwod" data-wid="${x.id}">Eliminar</button>`:''}</div></article>`;
+ <div class="actions"><button class="btn small primary" data-act="usewod" data-wid="${x.id}">${ui.addContext?.replaceWodId?'↻ Sustituir este WOD':ui.addContext?.addNewBlock?'+ Añadir como WOD adicional':'+ Añadir a mi día'}</button><button class="btn small" data-act="togglefav" data-wid="${x.id}">${isFav(x.id)?'★ Guardado':'☆ Favorito'}</button>${db.customWods.some(a=>a.id===x.id)?`<button class="btn small" data-act="editcustomwod" data-wid="${x.id}">Editar</button><button class="btn small danger" data-act="deletecustomwod" data-wid="${x.id}">Eliminar</button>`:''}</div></article>`;
 }
 function renderFavorites(){const arr=db.favorites.map(findWodById).filter(Boolean);return `<section class="paper"><div class="lead"><div><span class="eyebrow">Mis favoritos</span><h2>WOD que quieres repetir</h2><p>Puedes guardarlos desde tu entrenamiento o desde la biblioteca, y reutilizarlos cuando quieras.</p></div><button class="btn" data-nav="biblioteca">Abrir biblioteca</button></div>
  ${arr.length?`<div class="grid2">${arr.map(x=>wodCard(x)).join('')}</div>`:'<div class="empty">Todavía no tienes favoritos. Pulsa ☆ en un WOD de la biblioteca o «Guardar favorito» desde tu semana.</div>'}</section>`;}
@@ -682,12 +837,18 @@ function openExModal(bid,eid=null){
 function openWodModal(bid,wid=null){
  const b=getBlock(bid);if(!b)return;const existing=wid?b.wods.find(w=>w.id===wid):null;
  const seed=existing?clone(existing):wod('','');
- const form=`<div class="formgrid">${fInput('Nombre del WOD','title',seed.title||'',{required:true,span:true})}${fSelect('Formato','format',seed.format||'Otro',TYPES)}${fTextArea('Escribe el WOD completo','text',seed.text,'Ej.: 5 RFT\n10 T2B\n15 C2B\n30 m trineo')}</div><p class="smalltext subtle">Después puedes guardarlo como favorito desde el entrenamiento con ☆. También podrás modificar el WOD aunque el día ya haya llegado.</p>`;
- showModal(existing?'Editar WOD':'Crear WOD',form,fo=>{
-  const title=fd(fo,'title').trim(),text=fd(fo,'text').trim();if(!title||!text){toast('Escribe nombre y contenido');return false;}
-  if(existing){const matched=existing.libraryId&&findWodById(existing.libraryId);if(matched&&(matched.text!==text||matched.title!==title))existing.libraryId='';existing.title=title;existing.text=text;existing.format=fd(fo,'format');}
-  else{const n=wod(title,text,{format:fd(fo,'format')});b.wods.push(n);}
- });
+ const form=`<div class="formgrid">${fInput('Nombre del WOD','title',seed.title||'',{required:true,span:true})}${fSelect('Formato','format',seed.format||'Otro',TYPES)}${fTextArea('Escribe el WOD completo','text',seed.text,'Ej.: 5 RFT\n10 T2B\n15 C2B\n30 m trineo')}</div><p class="smalltext subtle">${existing?'Este WOD sustituirá al contenido que estaba previsto EN ESTE MISMO BLOQUE. No se añadirá ningún WOD adicional.':'Este WOD se escribirá en el bloque elegido.'} Podrás guardarlo en favoritos después.</p>`;
+ showModal(existing?'Escribir o sustituir este WOD':'Crear WOD',form,fo=>{
+  const title=fd(fo,'title').trim(),text=fd(fo,'text').trim(),format=fd(fo,'format');if(!title||!text){toast('Escribe nombre y contenido');return false;}
+  if(existing){
+   if(existing.title===title&&existing.text===text&&existing.format===format)return true;
+   if(existing.actual?.done&&!confirm('Este WOD ya estaba registrado como realizado. Sustituirlo borrará su resultado anterior. ¿Continuar?'))return false;
+   const matched=existing.libraryId&&findWodById(existing.libraryId);
+   if(matched&&(matched.text!==text||matched.title!==title))existing.libraryId='';
+   existing.title=title;existing.text=text;existing.format=format;existing.source='Escrito por ti';
+   existing.actual={done:false,completedAt:'',time:'',rounds:'',score:'',notes:''};
+  }else{b.wods.push(wod(title,text,{format}));}
+ },existing?'Guardar WOD en este bloque':'Crear WOD');
 }
 function openCustomWodModal(wid=null){const old=wid?db.customWods.find(x=>x.id===wid):null;
  const form=`<div class="formgrid">${fInput('Nombre del WOD','title',old?.title||'',{required:true,span:true})}${fSelect('Categoría','category',old?.category||'WOD',['WOD','ENGINE','CONDITIONING','WORKOUT','GRIND','ACCESSORY WOD','GYM ENGINE'])}${fSelect('Formato','format',old?.format||'Otro',TYPES)}${fTextArea('Estructura completa','text',old?.text||'','5 RFT\n10 T2B\n15 C2B\n30 m trineo')}</div>`;
@@ -705,14 +866,30 @@ function openRmModal(){showModal('Añadir RM',`<div class="formgrid">${fInput('N
 function openDestinationModal(wid){
  const keys=[ui.week,thisWeek(),nextWeek(),...Object.keys(db.weeks)].filter((x,i,a)=>a.indexOf(x)===i).sort();
  const options=keys.map(k=>[k,prettyWeek(k)]);
- showModal('Añadir WOD al entrenamiento',`<div class="formgrid">${fSelect('Semana destino','week',ui.week,options)}${fSelect('Día destino','day',String(ui.day),DAYNAMES.map((name,i)=>[String(i),name]))}</div><p class="smalltext subtle">El WOD se copiará al día elegido. Podrás editarlo después sin modificar la biblioteca.</p>`,form=>{addLibraryWod(wid,fd(form,'week'),num(fd(form,'day'),0),null);},'Añadir a ese día');
+ showModal('Añadir WOD al entrenamiento',`<div class="formgrid">${fSelect('Semana destino','week',ui.week,options)}${fSelect('Día destino','day',String(ui.day),DAYNAMES.map((name,i)=>[String(i),name]))}</div><p class="smalltext subtle">Se creará un bloque WOD adicional al final del día, sin sustituir los existentes. Podrás editarlo después sin modificar la biblioteca.</p>`,form=>{addLibraryWod(wid,fd(form,'week'),num(fd(form,'day'),0),null);},'Añadir a ese día');
+}
+function useLibraryWodInContext(wid,ctx){
+ const src=findWodById(wid);if(!src){toast('No se encuentra ese WOD');return;}
+ const days=ensureWeek(ctx.week).days;
+ const target=days[ctx.day];if(!target){toast('No se encuentra el día elegido');return;}
+ if(ctx.replaceWodId){
+  let matched=null;
+  for(const b of target.blocks){const hit=b.wods.find(x=>x.id===ctx.replaceWodId);if(hit){matched=hit;break;}}
+  if(!matched){toast('El WOD original ya no está disponible');return;}
+  if(matched.actual?.done&&!confirm('El WOD original ya está registrado como realizado. Al sustituirlo se perderá su resultado. ¿Continuar?'))return;
+  Object.assign(matched,{title:src.title,text:src.text,format:src.format,source:src.source||'Biblioteca privada',libraryId:src.id,actual:{done:false,completedAt:'',time:'',rounds:'',score:'',notes:''}});
+ }else if(ctx.addNewBlock){
+  target.blocks.push(block('WOD adicional','WOD',[],[wod(src.title,src.text,{format:src.format,source:src.source,libraryId:src.id})]));
+ }else{
+  let blockref=target.blocks.find(b=>b.id===ctx.blockId);
+  if(!blockref){blockref=block('WOD','WOD');target.blocks.push(blockref);}
+  blockref.wods.push(wod(src.title,src.text,{format:src.format,source:src.source,libraryId:src.id}));
+ }
+ ui.week=ctx.week;ui.day=ctx.day;ui.page='semana';ui.addContext=null;save();render();
+ toast(ctx.replaceWodId?'WOD sustituido en el mismo bloque':'WOD añadido al entrenamiento');
 }
 function addLibraryWod(wid,targetWeek,targetDay,bid){
- const src=findWodById(wid);if(!src){toast('No se encuentra ese WOD');return;}
- const target=ensureWeek(targetWeek).days[targetDay];let blockref=target.blocks.find(b=>b.id===bid);
- if(!blockref){blockref=target.blocks.find(b=>b.category==='WOD');if(!blockref){blockref=block('WOD','WOD');target.blocks.push(blockref);}}
- blockref.wods.push(wod(src.title,src.text,{format:src.format,source:src.source,libraryId:src.id}));
- ui.week=targetWeek;ui.day=targetDay;ui.page='semana';ui.addContext=null;save();render();toast('WOD añadido al entrenamiento');
+ useLibraryWodInContext(wid,{week:targetWeek,day:targetDay,blockId:bid,addNewBlock:!bid});
 }
 function toggleFavorite(wid){const at=db.favorites.indexOf(wid);if(at>=0)db.favorites.splice(at,1);else db.favorites.unshift(wid);save();render();toast(at>=0?'Favorito eliminado':'WOD guardado en favoritos');}
 function favoriteDayWod(wid){const o=getWod(wid);if(!o)return;const w=o.x;let lib=w.libraryId?findWodById(w.libraryId):null;
@@ -727,28 +904,6 @@ function plannedExerciseSnapshot(e){
  return {name:e.name,scheme:e.scheme,durationMin:e.durationMin,restSec:e.restSec,rmId:e.rmId,
    rows:e.rows.map(r=>({reps:r.reps,pct:r.pct,rir:r.rir,fixedKg:r.fixedKg,kg:calcKg(e,r)})),
    recordedAt:new Date().toISOString()};
-}
-function fillActualFromPlan(e,overwrite=false){
- const a=e.actual;a.summary=a.summary||{kg:'',reps:'',rir:'',rest:'',notes:''};
- ensureActualRows(e);
- const keep=(old,value)=>overwrite?String(value??''):(old!==undefined&&old!==null&&String(old)!==''?String(old):String(value??''));
- e.rows.forEach((r,i)=>{
-  const planned={kg:calcKg(e,r)===null?'':String(calcKg(e,r)),reps:String(r.reps||''),rir:String(r.rir||''),rest:String(e.restSec||'')};
-  a.rows[i]=a.rows[i]||{kg:'',reps:'',rir:'',rest:''};
-  for(const f of ['kg','reps','rir','rest'])a.rows[i][f]=keep(a.rows[i][f],planned[f]);
- });
- const uniform=field=>{const values=a.rows.map(r=>String(r[field]||''));return values.length&&values[0]&&values.every(v=>v===values[0])?values[0]:'';};
- for(const key of ['kg','reps','rir','rest']){
-  const u=uniform(key);if(overwrite)a.summary[key]=u;
-  else if(!a.summary[key]&&u)a.summary[key]=u;
- }
- a.plannedSnapshot=plannedExerciseSnapshot(e);
-}
-function copyPlanToActual(e){
- const a=e.actual||{},s=a.summary||{};
- const hasManual=Object.values(s).some(Boolean)||(a.rows||[]).some(r=>Object.values(r).some(Boolean));
- if(hasManual&&!confirm('Hay valores registrados. \u00bfQuieres reemplazarlos por lo programado?'))return;
- fillActualFromPlan(e,true);save();render();toast('Plan copiado a las series reales. Puedes ajustar los valores.');
 }
 async function importPrivateLibrary(file){
  if(!file)return;let parsed;
@@ -773,7 +928,7 @@ async function restoreBackup(file){
  const incoming=parsed.data;
  if(!Array.isArray(incoming.libraryWods))incoming.libraryWods=[];
  for(const snapshot of parsed.favoriteSnapshots||[]){if(snapshot?.id&&!incoming.customWods.some(x=>x.id===snapshot.id)&&!incoming.libraryWods.some(x=>x.id===snapshot.id))incoming.customWods.push(snapshot);}
- db=incoming;ui.week=db.weeks[thisWeek()]?thisWeek():Object.keys(db.weeks).sort().at(-1)||thisWeek();ui.day=0;ui.page='semana';ui.mode='registrar';
+ db=incoming;exerciseDrafts={};persistExerciseDrafts();ui.week=db.weeks[thisWeek()]?thisWeek():Object.keys(db.weeks).sort().at(-1)||thisWeek();ui.day=0;ui.page='semana';ui.mode='registrar';ui.addContext=null;
  if(save()){render();toast('Copia restaurada: RM, historial, registros y biblioteca.');}
 }
 document.addEventListener('click',ev=>{
@@ -804,14 +959,16 @@ document.addEventListener('click',ev=>{
   else if(act==='addwod'){openWodModal(b.dataset.bid);}
   else if(act==='editwod'){const x=getWod(b.dataset.wid);if(x)openWodModal(x.block.id,x.x.id);}
   else if(act==='deletewod'){const x=getWod(b.dataset.wid);if(x&&confirm(`¿Eliminar «${x.x.title}» de este día?`)){x.block.wods=x.block.wods.filter(v=>v.id!==x.x.id);save();render();}}
-  else if(act==='copyplan'){const x=getEx(b.dataset.eid);if(x)copyPlanToActual(x.x);}
+  else if(act==='saveexercise'){const x=getEx(b.dataset.eid);if(x)saveExerciseFromSeries(x.x);}
   else if(act==='editday'){openDayModal();}
   else if(act==='carryloads'){const prev=iso(addDays(fromKey(ui.week),-7));if(!db.weeks[prev]){toast('No hay semana anterior registrada');return;}const n=carryActualWeights(db.weeks[prev],week());if(n){save();render();toast(`${n} pesos reales trasladados a la planificación`);}else toast('No hay pesos reales nuevos aplicables (los ejercicios con %RM conservan sus porcentajes)');}
   else if(act==='copyprior'){const prev=iso(addDays(fromKey(ui.week),-7));if(!db.weeks[prev]){toast('No hay programación guardada para la semana anterior');return;}if(confirm('¿Sustituir la programación completa de esta semana por la anterior? Se borrarán los registros de esta semana.')){db.weeks[ui.week]=clone(db.weeks[prev]);for(const d of db.weeks[ui.week].days)for(const bl of d.blocks){for(const x of bl.items)resetActual(x);for(const w of bl.wods)w.actual={done:false,completedAt:'',time:'',rounds:'',score:'',notes:''};}save();render();}}
-  else if(act==='goto-library'){ui.addContext={week:ui.week,day:ui.day,blockId:b.dataset.bid||''};ui.page='biblioteca';ui.libraryLimit=24;render();window.scrollTo({top:0,behavior:'auto'});}
+  else if(act==='goto-library'){ui.addContext={week:ui.week,day:ui.day,blockId:b.dataset.bid||'',addNewBlock:!b.dataset.bid};ui.page='biblioteca';ui.libraryLimit=24;render();window.scrollTo({top:0,behavior:'auto'});}
+  else if(act==='replacewodlib'){const w=getWod(b.dataset.wid);if(w){ui.addContext={week:ui.week,day:ui.day,blockId:w.block.id,replaceWodId:w.x.id,replaceWodTitle:w.x.title};ui.page='biblioteca';ui.libraryLimit=24;render();window.scrollTo({top:0,behavior:'auto'});}}
+  else if(act==='goto-library-day'){ui.addContext={week:ui.week,day:ui.day,addNewBlock:true};ui.page='biblioteca';ui.libraryLimit=24;render();window.scrollTo({top:0,behavior:'auto'});}
   else if(act==='clearcontext'){ui.addContext=null;render();}
   else if(act==='morelibrary'){ui.libraryLimit+=24;renderLibraryCards();}
-  else if(act==='usewod'){if(ui.addContext)addLibraryWod(b.dataset.wid,ui.addContext.week,ui.addContext.day,ui.addContext.blockId);else openDestinationModal(b.dataset.wid);}
+  else if(act==='usewod'){if(ui.addContext)useLibraryWodInContext(b.dataset.wid,ui.addContext);else openDestinationModal(b.dataset.wid);}
   else if(act==='togglefav'){toggleFavorite(b.dataset.wid);}
   else if(act==='favoriteDayWod'){favoriteDayWod(b.dataset.wid);}
   else if(act==='newcustomwod'){openCustomWodModal();}
@@ -828,8 +985,8 @@ document.addEventListener('input',ev=>{
  const el=ev.target;
  if(el.id==='libSearch'){ui.libraryQuery=el.value;ui.libraryLimit=24;renderLibraryCards();return;}
  if(el.hasAttribute('data-daynote')){curDay().notes=el.value;save();return;}
- if(el.hasAttribute('data-exlog')){const o=getEx(el.dataset.exlog);if(o){o.x.actual.summary[el.dataset.field]=el.value;save();}return;}
- if(el.hasAttribute('data-exset')){const o=getEx(el.dataset.exset);if(o){ensureActualRows(o.x);o.x.actual.rows[Number(el.dataset.si)][el.dataset.field]=el.value;save();}return;}
+ if(el.hasAttribute('data-exnotes')){const o=getEx(el.dataset.exnotes);if(o)updateDraftUi(o.x,updateExerciseDraft(o.x,-1,'notes',el.value),el);return;}
+ if(el.hasAttribute('data-exset')){const o=getEx(el.dataset.exset);if(o)updateDraftUi(o.x,updateExerciseDraft(o.x,Number(el.dataset.si),el.dataset.field,el.value),el);return;}
  if(el.hasAttribute('data-wodlog')){const o=getWod(el.dataset.wodlog);if(o){o.x.actual[el.dataset.field]=el.value;save();}return;}
  if(el.closest('#editModal')&&($('#modalRM')||el.hasAttribute('data-sfield'))){updateModalTargets();}
 });
@@ -839,11 +996,6 @@ document.addEventListener('change',ev=>{
  if(el.id==='libType'){ui.libraryType=el.value;ui.libraryLimit=24;renderLibraryCards();return;}
  if(el.id==='roundStep'){db.settings.stepKg=num(el.value,2.5);save();render();return;}
  if(el.hasAttribute('data-rm')){const r=db.rms.find(x=>x.id===el.dataset.rm);if(r){const n=num(el.value);if(!Number.isFinite(n)||n<=0){toast('Introduce un RM positivo');render();return;}r.value=n;save();render();toast('RM actualizado: porcentajes recalculados');}return;}
- if(el.hasAttribute('data-doneex')){const o=getEx(el.dataset.doneex);if(o){
-  if(el.checked){fillActualFromPlan(o.x,false);o.x.actual.done=true;o.x.actual.completedAt=new Date().toISOString();}
-  else{o.x.actual.done=false;o.x.actual.completedAt='';}
-  save();render();if(el.checked)toast('Realizado: los valores programados se han copiado a cada serie.');
- }return;}
  if(el.hasAttribute('data-donewod')){const o=getWod(el.dataset.donewod);if(o){
   o.x.actual.done=el.checked;o.x.actual.completedAt=el.checked?new Date().toISOString():'';
   if(el.checked)o.x.actual.plannedSnapshot={title:o.x.title,text:o.x.text,format:o.x.format,source:o.x.source};
@@ -857,6 +1009,7 @@ window.addEventListener('storage',e=>{if(e.key===STORE_KEY&&e.newValue){try{cons
 if(!storageSupported){$('#saveLabel').textContent='⚠ Este navegador no permite guardar datos';$('#stateStatus').textContent='⚠ Sin almacenamiento';}
 init();
 })();
+
 </script>
 <script>
 window.addEventListener('load', function () {
@@ -865,7 +1018,7 @@ window.addEventListener('load', function () {
   /* Last chance to load the separate CSS if the browser ignored the inline style. */
   var retry = document.createElement('link');
   retry.rel = 'stylesheet';
-  retry.href = './styles.css?v=3.2-retry';
+  retry.href = './styles.css?v=3.4-retry';
   retry.onload = function () {
     if (getComputedStyle(b).display !== 'grid') showStyleHelp();
   };
