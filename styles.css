@@ -436,3 +436,48 @@ input, select, textarea { max-width: 100%; }
  .wod-inline-buttons .btn{width:100%;min-height:46px}
 }
 @media(max-width:359px){.wod-actions .btn{font-size:11px;padding:7px 3px}}
+
+/* V3.6 · Ejercicios plegados y registro bidireccional % RM ↔ kg */
+.exercise-card{padding:0!important;border-top:1px solid #e8e9e3;min-width:0}
+.exercise-card:first-child{border-top:0}
+.exercise-fold{margin:0;min-width:0}
+.exercise-summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 4px;cursor:pointer;min-width:0;border-radius:9px}
+.exercise-summary::-webkit-details-marker{display:none}
+.exercise-summary::marker{content:""}
+.exercise-summary:focus-visible{outline:3px solid #d4a70d;outline-offset:2px}
+.exercise-fold[open]>.exercise-summary{background:#fcfaf0}
+.exercise-summary-content{display:block;flex:1;min-width:0}
+.exercise-title-line{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.exercise-title-line .itemname{font-size:15px;line-height:1.35}
+.exercise-done{background:#e8f5eb;color:#12623d;padding:3px 7px;border-radius:7px;font-size:11px;font-weight:800}
+.exercise-summary-brief{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.exercise-brief-chip{font-size:11px;line-height:1.25;color:#525552;border-radius:7px;background:#f2f2ee;padding:5px 7px;font-weight:650}
+.exercise-brief-chip.accent{background:#fff0b9;color:#4d3a00}
+.exercise-expand-indicator{display:grid;justify-items:center;align-items:center;gap:0;flex:0 0 43px;color:#64655f;font-weight:700}
+.exercise-chevron{font-size:24px;line-height:20px;transform:rotate(0);transition:transform .15s}
+.exercise-expand-text{font-size:10px}
+.exercise-fold[open] .exercise-chevron{transform:rotate(180deg)}
+.exercise-expanded{padding:4px 5px 15px;border-top:1px dashed #e3dfd0;min-width:0}
+.exercise-plan-actions{margin:10px 0}
+.exercise-expanded .presc{margin:7px 0 8px;font-size:12px;line-height:1.6}
+.exercise-expanded .exercise-register{margin-top:9px}
+.exercise-rm-helper{font-size:11px;color:#645b41;line-height:1.45;margin:6px 0 9px;background:#fff8dd;padding:8px;border-radius:8px}
+.series-live.has-pct .setlogrow{grid-template-columns:30px minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.1fr) minmax(0,.95fr) minmax(0,1.05fr);gap:5px}
+.series-live.has-pct .setlogrow input{min-width:0}
+@media(max-width:760px){
+ .exercise-summary{padding:13px 1px;gap:6px}
+ .exercise-expand-indicator{flex-basis:35px}
+ .exercise-title-line .itemname{font-size:15px}
+ .exercise-brief-chip{font-size:10.5px;padding:4px 6px}
+ .exercise-expanded{padding:4px 0 13px}
+ .series-live.has-pct{padding:5px 3px 7px}
+ .series-live.has-pct .setlogrow{grid-template-columns:22px minmax(0,1.02fr) minmax(0,.92fr) minmax(0,1fr) minmax(0,.87fr) minmax(0,.99fr);gap:3px}
+ .series-live.has-pct .series-live-header span{font-size:9px}
+ .series-live.has-pct .setlogrow input{font-size:16px;padding:6px 1px;min-height:43px}
+}
+@media(max-width:359px){
+ .series-live.has-pct .setlogrow{grid-template-columns:18px minmax(0,.93fr) minmax(0,.84fr) minmax(0,.94fr) minmax(0,.76fr) minmax(0,.90fr);gap:2px}
+ .series-live.has-pct .series-live-header span{font-size:8.5px}
+ .series-live.has-pct .setlogrow input{padding:6px 0}
+ .exercise-brief-chip{font-size:10px}
+}
