@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f1cb39"><meta name="description" content="Entrenardos: diario semanal de entrenamiento, RMs, WODs e historial con copias JSON."><title>Entrenardos · Diario de entrenamiento V3.5</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f1cb39"><meta name="description" content="Entrenardos: diario semanal de entrenamiento, RMs, WODs e historial con copias JSON."><title>Entrenardos · Diario de entrenamiento V3.6</title>
 <style id="entrenardos-inline-style">
 :root{color-scheme:light;--ink:#181a1b;--muted:#62676b;--bg:#f5f5f1;--white:#fff;--line:#e1e1db;--yellow:#f1cb39;--pale:#fff7d6;--green:#23744d;--greenbg:#e9f7ef;--red:#b13f36;--shadow:0 2px 15px rgba(22,22,19,.035)}
 
@@ -441,15 +441,61 @@ input, select, textarea { max-width: 100%; }
 }
 @media(max-width:359px){.wod-actions .btn{font-size:11px;padding:7px 3px}}
 
+
+/* V3.6 · Ejercicios plegados y registro bidireccional % RM ↔ kg */
+.exercise-card{padding:0!important;border-top:1px solid #e8e9e3;min-width:0}
+.exercise-card:first-child{border-top:0}
+.exercise-fold{margin:0;min-width:0}
+.exercise-summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 4px;cursor:pointer;min-width:0;border-radius:9px}
+.exercise-summary::-webkit-details-marker{display:none}
+.exercise-summary::marker{content:""}
+.exercise-summary:focus-visible{outline:3px solid #d4a70d;outline-offset:2px}
+.exercise-fold[open]>.exercise-summary{background:#fcfaf0}
+.exercise-summary-content{display:block;flex:1;min-width:0}
+.exercise-title-line{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.exercise-title-line .itemname{font-size:15px;line-height:1.35}
+.exercise-done{background:#e8f5eb;color:#12623d;padding:3px 7px;border-radius:7px;font-size:11px;font-weight:800}
+.exercise-summary-brief{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.exercise-brief-chip{font-size:11px;line-height:1.25;color:#525552;border-radius:7px;background:#f2f2ee;padding:5px 7px;font-weight:650}
+.exercise-brief-chip.accent{background:#fff0b9;color:#4d3a00}
+.exercise-expand-indicator{display:grid;justify-items:center;align-items:center;gap:0;flex:0 0 43px;color:#64655f;font-weight:700}
+.exercise-chevron{font-size:24px;line-height:20px;transform:rotate(0);transition:transform .15s}
+.exercise-expand-text{font-size:10px}
+.exercise-fold[open] .exercise-chevron{transform:rotate(180deg)}
+.exercise-expanded{padding:4px 5px 15px;border-top:1px dashed #e3dfd0;min-width:0}
+.exercise-plan-actions{margin:10px 0}
+.exercise-expanded .presc{margin:7px 0 8px;font-size:12px;line-height:1.6}
+.exercise-expanded .exercise-register{margin-top:9px}
+.exercise-rm-helper{font-size:11px;color:#645b41;line-height:1.45;margin:6px 0 9px;background:#fff8dd;padding:8px;border-radius:8px}
+.series-live.has-pct .setlogrow{grid-template-columns:30px minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.1fr) minmax(0,.95fr) minmax(0,1.05fr);gap:5px}
+.series-live.has-pct .setlogrow input{min-width:0}
+@media(max-width:760px){
+ .exercise-summary{padding:13px 1px;gap:6px}
+ .exercise-expand-indicator{flex-basis:35px}
+ .exercise-title-line .itemname{font-size:15px}
+ .exercise-brief-chip{font-size:10.5px;padding:4px 6px}
+ .exercise-expanded{padding:4px 0 13px}
+ .series-live.has-pct{padding:5px 3px 7px}
+ .series-live.has-pct .setlogrow{grid-template-columns:22px minmax(0,1.02fr) minmax(0,.92fr) minmax(0,1fr) minmax(0,.87fr) minmax(0,.99fr);gap:3px}
+ .series-live.has-pct .series-live-header span{font-size:9px}
+ .series-live.has-pct .setlogrow input{font-size:16px;padding:6px 1px;min-height:43px}
+}
+@media(max-width:359px){
+ .series-live.has-pct .setlogrow{grid-template-columns:18px minmax(0,.93fr) minmax(0,.84fr) minmax(0,.94fr) minmax(0,.76fr) minmax(0,.90fr);gap:2px}
+ .series-live.has-pct .series-live-header span{font-size:8.5px}
+ .series-live.has-pct .setlogrow input{padding:6px 0}
+ .exercise-brief-chip{font-size:10px}
+}
+
 </style>
-<link rel="stylesheet" href="./styles.css?v=3.5" id="entrenardos-external-style"></head><body>
+<link rel="stylesheet" href="./styles.css?v=3.6" id="entrenardos-external-style"></head><body>
 <div class="app">
 <header class="header"><div class="brand"><div class="brandmark" aria-hidden="true">E</div><div><h1>Entrenardos</h1><small>Tu entrenamiento, semana a semana</small></div></div><div class="header-actions"><button class="btn primary" data-act="backup">↓ Descargar mis datos</button><button class="btn" data-act="restore">↑ Restaurar copia</button></div></header>
 <nav class="navigation" aria-label="Secciones" id="nav">
 <button class="nav active" data-nav="semana">Semana</button><button class="nav" data-nav="historial">Historial</button><button class="nav" data-nav="biblioteca">Biblioteca WOD</button><button class="nav" data-nav="favoritos">★ Favoritos</button><button class="nav" data-nav="rms">Mis RM</button><button class="nav" data-nav="copias">Copias</button>
 </nav>
 <div class="backupbar"><div><strong id="saveLabel">Guardado en este navegador</strong><span class="subtle">Las copias JSON te permiten recuperar los datos en otro móvil.</span></div><span class="week-status" id="stateStatus">● Guardado local</span></div>
-<main id="appMain"></main><footer class="footer">Entrenardos V3.5 · Los registros son locales a este navegador. Haz una copia de seguridad semanal.</footer></div>
+<main id="appMain"></main><footer class="footer">Entrenardos V3.6 · Los registros son locales a este navegador. Haz una copia de seguridad semanal.</footer></div>
 <dialog class="modal" id="editModal"></dialog><input type="file" id="restoreFile" accept=".json,application/json" class="only-screen-reader"><input type="file" id="libraryFile" accept=".json,application/json" class="only-screen-reader"><div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>(()=>{
 'use strict';
@@ -472,6 +518,8 @@ const storageSupported=(()=>{try{const t='__entrenardos_storage_test__';localSto
 let db;
 let ui={page:'semana',mode:'registrar',week:'',day:0,libraryQuery:'',libraryCategory:'',libraryType:'',libraryLimit:24,addContext:null};
 let toastTimer;
+// Mantiene abiertos los ejercicios que el usuario ha desplegado, incluso tras guardar.
+const expandedExercises=new Set();
 // Unsaved series edits live separately from the real training log. Saving a
 // single exercise makes that exercise completed; changing a field never does.
 const DRAFT_KEY='entrenardos_v3_3_borradores_ejercicio';
@@ -621,7 +669,7 @@ function renderWeek(){
  <div class="weekbar-actions"><button class="btn small icon" data-act="shiftweek" data-delta="-7" aria-label="Semana anterior">‹</button>${backToCurrent}<button class="btn small icon" data-act="shiftweek" data-delta="7" aria-label="Semana siguiente">›</button></div></div>
  <div class="daygrid">${w.days.map((day,i)=>{const when=dayDate(ui.week,i),td=iso(when)===iso(today()),done=day.blocks.some(b=>b.items.some(x=>x.actual?.done)||b.wods.some(x=>x.actual?.done));return `<button class="daybtn ${i===ui.day?'active':''} ${td?'today':''} ${done?'hasdone':''}" data-act="day" data-day="${i}"><span>${['L','M','X','J','V','S','D'][i]}</span><small>${when.getDate()}</small><b class="dot"></b></button>`}).join('')}</div>
  <div class="flex between"><div><h2 style="margin:0">${safe(DAYNAMES[ui.day])} ${dt.getDate()}</h2><p class="subtle smalltext" style="margin:2px 0">${safe(d.label)}</p></div><div class="tabswitch"><button class="btn small ${ui.mode==='registrar'?'active':''}" data-act="mode" data-mode="registrar">Registrar</button><button class="btn small ${ui.mode==='planificar'?'active':''}" data-act="mode" data-mode="planificar">Planificar</button></div></div>
- ${ui.mode==='planificar'?'<p class="helper" style="margin-top:14px">Puedes cambiar ahora todos los ejercicios de cualquier día y de cualquier semana. Los cambios quedan guardados aunque el entrenamiento todavía no se haya realizado.</p>':'<p class="helper" style="margin-top:14px">Todas las series aparecen con lo programado. Si has cumplido el plan, pulsa <strong>Guardar ejercicio</strong>; si no, cambia únicamente las series necesarias y guarda.</p>'}
+ ${ui.mode==='planificar'?'<p class="helper" style="margin-top:14px">Puedes cambiar ahora todos los ejercicios de cualquier día y de cualquier semana. Los cambios quedan guardados aunque el entrenamiento todavía no se haya realizado.</p>':'<p class="helper" style="margin-top:14px">Los ejercicios aparecen resumidos. Toca uno para desplegar todas sus series, ya rellenadas. Puedes ajustar los <strong>% y kg</strong> de cada serie y pulsar <strong>Guardar ejercicio</strong>.</p>'}
  <div style="margin-top:17px">${d.blocks.length?d.blocks.map((b,i)=>renderBlock(b,i)).join(''):'<div class="empty">Este día aún no tiene bloques. En Planificar puedes añadirlos.</div>'}</div>
  <div class="daynote"><label class="label" for="daynotes">Notas generales del día</label><textarea id="daynotes" data-daynote="1" placeholder="Sensaciones, molestias, recuperación, distancia del trail...">${safe(d.notes)}</textarea></div>
  <div class="daily-bottom-actions"><div class="daily-bottom-title">Opciones del día</div>
@@ -636,16 +684,42 @@ function renderBlock(b,bIndex){
  ${plan?`<div class="controls-bottom"><button class="btn small primary" data-act="addex" data-bid="${b.id}">+ Ejercicio</button>${!b.wods.length?`<button class="btn small" data-act="addwod" data-bid="${b.id}">+ Escribir WOD en este bloque</button><button class="btn small" data-act="goto-library" data-bid="${b.id}">+ WOD de biblioteca aquí</button>`:''}</div>`:''}
  </section>`;
 }
+function exerciseFoldKey(e){return `${ui.week}|${ui.day}|${e.id}`;}
+function compactReps(rows){
+ const parts=[];
+ for(const r of rows){const val=String(r.reps||'—');const last=parts.at(-1);if(last&&last.val===val)last.n++;else parts.push({val,n:1});}
+ if(parts.length>5)return `${rows[0]?.reps||'—'}…${rows.at(-1)?.reps||'—'}`;
+ return parts.map(x=>x.n>1?`${x.n}×${x.val}`:x.val).join(' + ');
+}
+function exerciseBrief(e){
+ const g=exGoal(e),ps=e.rows.map(r=>num(r.pct)).filter(Number.isFinite),kg=g.ks;
+ const pctText=ps.length&&g.ref?(Math.min(...ps)===Math.max(...ps)?`${pnum(ps[0])}%`:`${pnum(Math.min(...ps))}–${pnum(Math.max(...ps))}%`):'';
+ const kgText=kg.length?(Math.min(...kg)===Math.max(...kg)?`${pnum(kg[0])} kg`:`${pnum(Math.min(...kg))}–${pnum(Math.max(...kg))} kg`):'';
+ const rir=currentRir(e);
+ return `<span class="exercise-brief-chip">${e.rows.length} series · ${safe(compactReps(e.rows))} reps</span>
+ <span class="exercise-brief-chip">${safe(e.scheme)}${e.durationMin?` · ${safe(e.durationMin)} min`:''}</span>
+ ${pctText?`<span class="exercise-brief-chip accent">${safe(pctText)} ${safe(g.ref.name)}</span>`:''}
+ ${kgText?`<span class="exercise-brief-chip accent">${safe(kgText)}</span>`:''}
+ ${rir!=='—'?`<span class="exercise-brief-chip">RIR ${safe(rir)}</span>`:''}
+ ${!pctText&&!kgText&&rir==='—'?'<span class="exercise-brief-chip">Carga por definir</span>':''}`;
+}
 function renderExercise(e,b,plan){
- const goal=exGoal(e),active=!!e.actual?.done;
- const rm=goal.ref?`% RM ${safe(goal.ref.name)}`:e.rows.some(r=>r.fixedKg!=='' )?'Peso fijo':'Sin RM';
- const target=goal.ks.length?`${weightText(goal.first)}${goal.ks.length>1&&goal.last!==goal.first?' → '+weightText(goal.last):''}`:'Sin kg programados';
- const sets=e.rows.length,rs=e.rows.map(x=>x.reps),reps=rs.every(x=>x===rs[0])?rs[0]:rs.length>7?rs.slice(0,3).join(' · ')+'…':rs.join(' · ');
- const actions=plan?`<div class="actions"><button class="btn small" data-act="editex" data-eid="${e.id}">✎ Editar</button><button class="btn small" data-act="moveex" data-eid="${e.id}" data-delta="-1">↑</button><button class="btn small" data-act="moveex" data-eid="${e.id}" data-delta="1">↓</button><button class="btn small danger" data-act="deleteex" data-eid="${e.id}">×</button></div>`:'';
+ const done=!!e.actual?.done,open=expandedExercises.has(exerciseFoldKey(e));
+ const g=exGoal(e),sets=e.rows.length;
+ const goal=g.ks.length?`${weightText(g.first)}${g.ks.length>1&&g.last!==g.first?' → '+weightText(g.last):''}`:'Sin kg programados';
+ const actions=plan?`<div class="actions exercise-plan-actions"><button class="btn small" data-act="editex" data-eid="${safe(e.id)}">✎ Editar ejercicio</button><button class="btn small" data-act="moveex" data-eid="${safe(e.id)}" data-delta="-1">↑</button><button class="btn small" data-act="moveex" data-eid="${safe(e.id)}" data-delta="1">↓</button><button class="btn small danger" data-act="deleteex" data-eid="${safe(e.id)}">×</button></div>`:'';
  const rows=e.rows.map((r,i)=>`<span>S${i+1}: ${safe(r.reps||'—')} rep ${r.pct!==''?'· '+safe(r.pct)+'%':''} ${calcKg(e,r)!==null?'· '+weightText(calcKg(e,r)):''}${r.rir!==''?' · RIR '+safe(r.rir):''}</span>`).join('');
- return `<article class="item ${active?'doneitem':''}"><div class="itemhead"><div><div class="itemname">${safe(e.name)} ${active?'<span class="highlight">✓</span>':''}</div><div class="badges"><span class="chip yellow">${safe(e.scheme)}</span><span class="chip">${sets} series · ${safe(reps)} rep</span><span class="chip">${rm}</span>${e.durationMin?`<span class="chip">${safe(e.durationMin)} min</span>`:''}${e.restSec?`<span class="chip">${safe(e.restSec)} s descanso</span>`:''}${currentRir(e)!=='—'?`<span class="chip">RIR ${safe(currentRir(e))}</span>`:''}</div></div>${actions}</div>
- <div class="presc"><strong>Cargas objetivo:</strong> ${safe(target)}${e.notes?`<br><span class="subtle">${safe(e.notes)}</span>`:''}</div>
- ${plan?`<div class="series-preview" aria-label="Objetivos de las ${sets} series">${rows}</div>`:renderExLog(e)}
+ return `<article class="item exercise-card ${done?'doneitem':''}" data-exercise-card="${safe(e.id)}">
+  <details class="exercise-fold" data-foldkey="${safe(exerciseFoldKey(e))}" ${open?'open':''}>
+   <summary class="exercise-summary" aria-label="${safe(e.name)}. Pulsar para ver u ocultar sus series">
+     <span class="exercise-summary-content"><span class="exercise-title-line"><span class="itemname">${safe(e.name)}</span>${done?'<span class="exercise-done">✓ Guardado</span>':''}</span><span class="exercise-summary-brief">${exerciseBrief(e)}</span></span>
+     <span class="exercise-expand-indicator" aria-hidden="true"><span class="exercise-chevron">⌄</span><span class="exercise-expand-text">${open?'Cerrar':'Series'}</span></span>
+   </summary>
+   <div class="exercise-expanded">${actions}
+     <div class="presc"><strong>Objetivo:</strong> ${safe(goal)}${e.restSec?` · ${safe(e.restSec)} s de descanso`:''}${e.notes?`<br><span class="subtle">${safe(e.notes)}</span>`:''}</div>
+     ${plan?`<div class="series-preview" aria-label="Objetivos de las ${sets} series">${rows}</div>`:renderExLog(e)}
+   </div>
+  </details>
  </article>`;
 }
 function exerciseDraftKey(e){return `${ui.week}|${ui.day}|${e.id}`;}
@@ -656,8 +730,24 @@ function persistExerciseDrafts(){
  try{localStorage.setItem(DRAFT_KEY,JSON.stringify(exerciseDrafts));}
  catch(e){console.warn('No se pudo guardar el borrador de ejercicio',e);}
 }
+// Un porcentaje siempre se calcula contra el RM seleccionado; los kilos de
+// registro se conservan tal cual y no se redondean cuando se editan a mano.
+function fmtPct(value){if(!Number.isFinite(value))return '';return String(Math.round((value+Number.EPSILON)*100)/100);}
+function kgFromPercent(exercise,percent){
+ const rm=db.rms.find(x=>x.id===exercise.rmId),p=num(percent);
+ if(!rm||!Number.isFinite(p)||!Number.isFinite(num(rm.value))||num(rm.value)<=0)return '';
+ const step=num(db.settings.stepKg,2.5)||2.5;
+ return String(Math.round((num(rm.value)*p/100)/step)*step);
+}
+function percentFromKg(exercise,kg){
+ const rm=db.rms.find(x=>x.id===exercise.rmId),k=num(kg);
+ if(!rm||!Number.isFinite(k)||!Number.isFinite(num(rm.value))||num(rm.value)<=0)return '';
+ return fmtPct(k/num(rm.value)*100);
+}
+function exerciseHasPercentage(exercise){return !!db.rms.find(x=>x.id===exercise.rmId);}
 function plannedSetValue(e,r,field){
  if(field==='kg'){const kg=calcKg(e,r);return kg===null?'':String(kg);}
+ if(field==='pct')return e.rmId?String(r.pct??''):'';
  if(field==='reps')return String(r.reps??'');
  if(field==='rir')return String(r.rir??'');
  if(field==='rest')return e.restSec===''||e.restSec===null||e.restSec===undefined?'':String(e.restSec);
@@ -668,6 +758,12 @@ function originalSetValue(e,index,field){
  // Data from V3.2 are preserved. An unsaved legacy series is shown if it had
  // been entered by hand, but it is NOT regarded as completed in V3.3.
  if(recorded&&e.actual?.done&&Object.prototype.hasOwnProperty.call(recorded,field))return String(recorded[field]??'');
+ if(field==='pct'&&recorded&&e.actual?.done&&e.rmId){
+  const snap=e.actual?.plannedSnapshot?.rows?.[index],kg=num(recorded.kg);
+  if(snap&&Number.isFinite(kg)&&Number.isFinite(num(snap.kg))&&Math.abs(kg-num(snap.kg))<0.0001&&snap.pct!=='')return String(snap.pct);
+  const rmValue=num(e.actual?.rmValueAtSave,db.rms.find(r=>r.id===e.rmId)?.value);
+  if(Number.isFinite(kg)&&rmValue>0)return fmtPct(kg/rmValue*100);
+ }
  return plannedSetValue(e,e.rows[index],field);
 }
 function shownSetValue(e,index,field){
@@ -710,12 +806,14 @@ function updateDraftUi(e,dirty,origin){
 function saveExerciseFromSeries(e){
  if(!e||!Array.isArray(e.rows)||!e.rows.length){toast('El ejercicio necesita al menos una serie');return;}
  const actual=e.actual||{};
- const rows=e.rows.map((r,i)=>Object.fromEntries(['kg','reps','rir','rest'].map(f=>[f,shownSetValue(e,i,f)])));
+ const rows=e.rows.map((r,i)=>Object.fromEntries(['reps','pct','kg','rir','rest'].map(f=>[f,shownSetValue(e,i,f)])));
  const notes=shownExerciseNotes(e);
  const same=field=>{const v=rows.map(r=>String(r[field]??''));return v.length&&v[0]!==''&&v.every(x=>x===v[0])?v[0]:'';};
  const prior=clone(actual);
  actual.rows=rows;
- actual.summary={kg:same('kg'),reps:same('reps'),rir:same('rir'),rest:same('rest'),notes};
+ actual.summary={kg:same('kg'),pct:same('pct'),reps:same('reps'),rir:same('rir'),rest:same('rest'),notes};
+ const matchedRM=db.rms.find(r=>r.id===e.rmId);
+ if(matchedRM){actual.rmValueAtSave=num(matchedRM.value);actual.rmNameAtSave=matchedRM.name;}
  actual.done=true;
  actual.completedAt=new Date().toISOString();
  actual.plannedSnapshot=plannedExerciseSnapshot(e);
@@ -732,16 +830,20 @@ function renderExLog(e){
  const done=!!e.actual?.done,dirty=hasDraftChanges(e),sets=e.rows.length;
  const status=dirty?'Cambios sin guardar':done?'✓ Registrado':'Preparado para registrar';
  const cls=dirty?'editing':done?'saved':'planned';
+ const hasPercent=exerciseHasPercentage(e),rm=db.rms.find(r=>r.id===e.rmId);
+ const fields=hasPercent?['reps','pct','kg','rir','rest']:['reps','kg','rir','rest'];
+ const heads={reps:'Reps',pct:'% RM',kg:'kg',rir:'RIR',rest:'Desc. s'};
+ const aria={reps:'repeticiones',pct:'porcentaje del RM',kg:'peso en kg',rir:'RIR',rest:'descanso en segundos'};
  return `<div class="logpanel exercise-register" data-exercise-log="${safe(e.id)}">
- <div class="exercise-log-intro"><span class="exercise-log-status ${cls}" data-exlogstatus="${safe(e.id)}">${status}</span><span class="smalltext subtle">${sets} series · los valores iniciales son los programados</span></div>
- <div class="exercise-log-legend">Edita solo lo que hayas hecho diferente. Ningún resultado se registra hasta que pulses «Guardar ejercicio».</div>
- <div class="series-live" role="group" aria-label="Registro de las ${sets} series de ${safe(e.name)}">
- <div class="setlogrow series-live-header" aria-hidden="true"><span>Serie</span><span>Reps</span><span>kg</span><span>RIR</span><span>Desc. s</span></div>
- ${e.rows.map((r,i)=>`<div class="setlogrow series-live-row" data-series-number="${i+1}"><span class="series-number" title="Objetivo: ${safe(r.reps)} reps, ${weightText(calcKg(e,r))}">${i+1}</span>${['reps','kg','rir','rest'].map((f)=>{
-  const value=shownSetValue(e,i,f);
-  const original=originalSetValue(e,i,f);
-  const change=getExerciseDraft(e).rows?.[i]&&Object.prototype.hasOwnProperty.call(getExerciseDraft(e).rows[i],f);
-  return `<input aria-label="${safe(e.name)}, serie ${i+1}, ${f==='kg'?'peso en kg':f==='reps'?'repeticiones':f==='rir'?'RIR':'descanso en segundos'}" data-exset="${safe(e.id)}" data-si="${i}" data-field="${f}" inputmode="${f==='kg'?'decimal':f==='rest'?'numeric':'text'}" value="${safe(value)}" placeholder="—" ${change?'class="draft-changed"':''} title="Valor programado: ${safe(plannedSetValue(e,r,f)||'sin indicar')}">`;
+ <div class="exercise-log-intro"><span class="exercise-log-status ${cls}" data-exlogstatus="${safe(e.id)}">${status}</span><span class="smalltext subtle">${sets} series · valores inicialmente programados</span></div>
+ <div class="exercise-log-legend">Si hiciste lo previsto, pulsa «Guardar ejercicio». Si cambió alguna serie, edítala y guarda.</div>
+ ${hasPercent?`<div class="exercise-rm-helper">RM de referencia: <strong>${safe(rm.name)} (${pnum(rm.value)} kg)</strong> · Los porcentajes se corresponden con los kilos que registres. Al editar el porcentaje, los kilos se redondean al escalón de ${pnum(num(db.settings.stepKg,2.5)||2.5)} kg.</div>`:''}
+ <div class="series-live ${hasPercent?'has-pct':'no-pct'}" role="group" aria-label="Registro de las ${sets} series de ${safe(e.name)}">
+ <div class="setlogrow series-live-header" aria-hidden="true"><span>Serie</span>${fields.map(f=>`<span>${heads[f]}</span>`).join('')}</div>
+ ${e.rows.map((r,i)=>`<div class="setlogrow series-live-row" data-series-number="${i+1}"><span class="series-number" title="Objetivo: ${safe(r.reps)} reps, ${weightText(calcKg(e,r))}">${i+1}</span>${fields.map(f=>{
+  const value=shownSetValue(e,i,f),draftrow=getExerciseDraft(e).rows?.[i];
+  const changed=!!(draftrow&&Object.prototype.hasOwnProperty.call(draftrow,f));
+  return `<input aria-label="${safe(e.name)}, serie ${i+1}, ${aria[f]}" data-exset="${safe(e.id)}" data-si="${i}" data-field="${f}" inputmode="${f==='kg'||f==='pct'?'decimal':f==='rest'?'numeric':'text'}" value="${safe(value)}" placeholder="—" ${changed?'class="draft-changed"':''} title="Valor programado: ${safe(plannedSetValue(e,r,f)||'sin indicar')}">`;
  }).join('')}</div>`).join('')}
  </div>
  <div class="field exercise-notes"><label for="notes-${safe(e.id)}">Comentarios del ejercicio (opcional)</label><textarea id="notes-${safe(e.id)}" data-exnotes="${safe(e.id)}" placeholder="Técnica, fatiga o cualquier cambio respecto al plan...">${safe(shownExerciseNotes(e))}</textarea></div>
@@ -1038,6 +1140,15 @@ async function restoreBackup(file){
  db=incoming;exerciseDrafts={};persistExerciseDrafts();ui.week=db.weeks[thisWeek()]?thisWeek():Object.keys(db.weeks).sort().at(-1)||thisWeek();ui.day=0;ui.page='semana';ui.mode='registrar';ui.addContext=null;
  if(save()){render();toast('Copia restaurada: RM, historial, registros y biblioteca.');}
 }
+// Native details do not change the saved workout. Track user-toggled folds
+// so other actions and saves don't unexpectedly close them.
+document.addEventListener('click',ev=>{
+ const title=ev.target.closest('summary.exercise-summary');
+ if(!title)return;
+ const parent=title.closest('details.exercise-fold');if(!parent)return;
+ const key=parent.dataset.foldkey;
+ if(parent.open)expandedExercises.delete(key);else expandedExercises.add(key);
+},true);
 document.addEventListener('click',ev=>{
  const nav=ev.target.closest('[data-nav]');if(nav){ui.page=nav.dataset.nav;ui.libraryLimit=24;if(ui.page==='biblioteca')ui.addContext=null;render();window.scrollTo({top:0,behavior:'auto'});return;}
  const m=ev.target.closest('[data-mact]');if(m){
@@ -1097,7 +1208,22 @@ document.addEventListener('input',ev=>{
  if(el.id==='libSearch'){ui.libraryQuery=el.value;ui.libraryLimit=24;renderLibraryCards();return;}
  if(el.hasAttribute('data-daynote')){curDay().notes=el.value;save();return;}
  if(el.hasAttribute('data-exnotes')){const o=getEx(el.dataset.exnotes);if(o)updateDraftUi(o.x,updateExerciseDraft(o.x,-1,'notes',el.value),el);return;}
- if(el.hasAttribute('data-exset')){const o=getEx(el.dataset.exset);if(o)updateDraftUi(o.x,updateExerciseDraft(o.x,Number(el.dataset.si),el.dataset.field,el.value),el);return;}
+ if(el.hasAttribute('data-exset')){
+  const o=getEx(el.dataset.exset);
+  if(o){
+   const e=o.x,idx=Number(el.dataset.si),field=el.dataset.field;
+   updateExerciseDraft(e,idx,field,el.value);
+   // Synchronise only the currently edited series, never the plan or other sets.
+   if(exerciseHasPercentage(e)&&(field==='pct'||field==='kg')){
+    const otherField=field==='pct'?'kg':'pct';
+    const otherValue=el.value.trim()===''?'':field==='pct'?kgFromPercent(e,el.value):percentFromKg(e,el.value);
+    const paired=el.closest('.series-live-row')?.querySelector(`[data-field="${otherField}"]`);
+    if(paired){paired.value=otherValue;updateExerciseDraft(e,idx,otherField,otherValue);paired.classList.toggle('draft-changed',otherValue!==originalSetValue(e,idx,otherField));}
+   }
+   updateDraftUi(e,hasDraftChanges(e),el);
+  }
+  return;
+ }
  if(el.hasAttribute('data-wodlog')){const o=getWod(el.dataset.wodlog);if(o){o.x.actual[el.dataset.field]=el.value;save();}return;}
  if(el.closest('#editModal')&&($('#modalRM')||el.hasAttribute('data-sfield'))){updateModalTargets();}
 });
@@ -1129,7 +1255,7 @@ window.addEventListener('load', function () {
   /* Last chance to load the separate CSS if the browser ignored the inline style. */
   var retry = document.createElement('link');
   retry.rel = 'stylesheet';
-  retry.href = './styles.css?v=3.5-retry';
+  retry.href = './styles.css?v=3.6-retry';
   retry.onload = function () {
     if (getComputedStyle(b).display !== 'grid') showStyleHelp();
   };
